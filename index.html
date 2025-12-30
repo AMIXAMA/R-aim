@@ -3,68 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMIXAMA - طراح و توسعه‌دهنده وب حرفه‌ای</title>
-    <meta name="description" content="AMIXAMA متخصص طراحی وب‌سایت‌های حرفه‌ای، لندینگ پیج‌های تبدیل‌محور و برندسازی دیجیتال با تمرکز روی عملکرد بالا و نتایج واقعی برای کسب‌وکار شما.">
-    <meta name="keywords" content="طراحی وب, توسعه وب, لندینگ پیج, برندسازی دیجیتال, وب‌سایت شرکتی, پورتفولیو, AMIXAMA">
+    <title>AMIXAMA - طراحی وب حرفه‌ای</title>
     <style>
-        body { margin:0; padding:0; font-family: Tahoma, sans-serif; background:#000; color:#e0e0e0; line-height:1.8; overflow-x:hidden; }
-        nav { position:fixed; top:0; width:100%; background:rgba(0,0,0,0.92); padding:15px 0; text-align:center; z-index:1000; backdrop-filter:blur(12px); border-bottom:1px solid #111; }
-        nav a { color:#fff; margin:0 20px; font-size:17px; font-weight:bold; text-decoration:none; transition:0.3s; }
-        nav a:hover { color:#00bfff; text-shadow:0 0 10px #00bfff; }
+        body { margin:0; padding:0; font-family: Tahoma, sans-serif; background:#000; color:#e0e0e0; overflow-x:hidden; }
+        nav { position:fixed; top:0; width:100%; background:rgba(0,0,0,0.95); padding:18px 0; text-align:center; z-index:1000; backdrop-filter:blur(15px); border-bottom:1px solid #111; }
+        nav a { color:#fff; margin:0 22px; font-size:18px; font-weight:bold; text-decoration:none; transition:0.4s; }
+        nav a:hover { color:#00bfff; text-shadow:0 0 12px #00bfff; }
         .dropdown { position:relative; display:inline-block; }
-        .dropdown-content { display:none; position:absolute; background:#111; min-width:180px; box-shadow:0 10px 20px rgba(0,0,0,0.8); right:0; border-radius:10px; top:100%; overflow:hidden; }
-        .dropdown-content a { display:block; padding:12px 20px; color:#ccc; font-size:16px; transition:0.3s; }
-        .dropdown-content a:hover { background:#00bfff; color:#fff; }
+        .dropdown-content { display:none; position:absolute; background:#111; min-width:200px; box-shadow:0 12px 24px rgba(0,0,0,0.8); right:0; border-radius:12px; top:100%; }
+        .dropdown-content a { display:block; padding:14px 20px; color:#ccc; transition:0.3s; }
+        .dropdown-content a:hover { background:#00bfff; color:#000; }
         .dropdown:hover .dropdown-content { display:block; }
 
-        section { padding:90px 20px; text-align:center; position:relative; }
-        #home { background:linear-gradient(135deg, #001133, #000811); min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; }
-        .hero-bg { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
-        .particle { position:absolute; width:5px; height:5px; background:#00bfff; border-radius:50%; box-shadow:0 0 12px #00bfff; opacity:0.7; animation:float 18s infinite linear; }
-        @keyframes float { 0% { transform:translateY(100vh) scale(0); opacity:0; } 50% { opacity:0.8; } 100% { transform:translateY(-100px) translateX(80px) scale(1); opacity:0; } }
+        section { padding:100px 20px; text-align:center; position:relative; }
 
-        .logo { font-size:95px; font-weight:bold; color:#fff; letter-spacing:22px; margin-bottom:40px; text-shadow:0 0 60px #00bfff; }
-        .tagline { font-size:28px; color:#ccc; max-width:900px; margin-bottom:60px; }
-        .hero-btn { padding:22px 75px; background:linear-gradient(135deg, #00bfff, #0088cc); color:#fff; font-size:26px; border-radius:50px; text-decoration:none; box-shadow:0 0 40px rgba(0,191,255,0.8); transition:0.4s; }
-        .hero-btn:hover { box-shadow:0 0 60px rgba(0,191,255,1); transform:scale(1.08); }
+        /* Home - هیرو متحرک سخت */
+        #home { background:linear-gradient(135deg, #000811, #001133); min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+        .hero-bg { position:absolute; inset:0; overflow:hidden; }
+        .particle { position:absolute; width:6px; height:6px; background:#00bfff; border-radius:50%; box-shadow:0 0 20px #00bfff; opacity:0.6; animation:float 20s infinite linear; }
+        @keyframes float { 0% { transform:translateY(100vh) rotate(0deg); opacity:0; } 50% { opacity:0.8; } 100% { transform:translateY(-100px) translateX(100px) rotate(360deg); opacity:0; } }
 
-        h2 { font-size:38px; color:#00bfff; margin-bottom:50px; position:relative; }
-        h2::after { content:''; width:100px; height:4px; background:#00bfff; position:absolute; bottom:-15px; left:50%; transform:translateX(-50%); border-radius:2px; }
+        .logo { font-size:100px; font-weight:bold; color:#fff; letter-spacing:30px; text-shadow:0 0 60px #00bfff, 0 0 120px #0088cc; animation:glow 4s infinite alternate; }
+        @keyframes glow { from { text-shadow:0 0 60px #00bfff; } to { text-shadow:0 0 120px #00bfff, 0 0 200px #0088cc; } }
 
-        .services-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:40px; max-width:1300px; margin:0 auto; }
-        .service-card { background:#0a0a1a; padding:40px; border-radius:18px; box-shadow:0 15px 40px rgba(0,0,0,0.6); border:1px solid #111; transition:0.4s; }
-        .service-card:hover { border-color:#00bfff; transform:translateY(-15px); box-shadow:0 25px 60px rgba(0,191,255,0.25); }
-        .service-card h3 { font-size:26px; color:#00bfff; margin-bottom:20px; }
-        .service-card ul { text-align:right; padding-right:20px; font-size:16px; color:#bbb; }
-        .service-card li { margin:12px 0; }
+        .tagline { font-size:28px; color:#aaa; max-width:900px; margin:40px 0 70px; line-height:1.8; opacity:0; animation:fadeIn 2s forwards 1s; }
+        @keyframes fadeIn { to { opacity:1; } }
 
-        .portfolio-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:35px; max-width:1300px; margin:0 auto; }
-        .portfolio-item { position:relative; height:300px; background:#0a0a1a; border-radius:18px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.6); transition:0.4s; }
-        .portfolio-item:hover { transform:scale(1.06); }
-        .portfolio-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.65); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; font-size:20px; color:#00bfff; opacity:0; transition:0.4s; }
+        .hero-btn { padding:25px 80px; background:linear-gradient(135deg, #00bfff, #0088cc); color:#fff; font-size:28px; border-radius:60px; text-decoration:none; box-shadow:0 0 40px rgba(0,191,255,0.8); transition:0.5s; animation:pulse 2s infinite; }
+        .hero-btn:hover { transform:scale(1.1); box-shadow:0 0 80px rgba(0,191,255,1); }
+        @keyframes pulse { 0% { box-shadow:0 0 40px rgba(0,191,255,0.8); } 50% { box-shadow:0 0 60px rgba(0,191,255,1); } 100% { box-shadow:0 0 40px rgba(0,191,255,0.8); } }
+
+        h2 { font-size:40px; color:#00bfff; margin-bottom:60px; position:relative; }
+        h2::after { content:''; width:120px; height:4px; background:#00bfff; position:absolute; bottom:-20px; left:50%; transform:translateX(-50%); border-radius:2px; }
+
+        .services-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(350px,1fr)); gap:50px; max-width:1400px; margin:0 auto; }
+        .service-card { background:#0f0f1f; padding:50px; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.7); border:1px solid #222; transition:0.5s; }
+        .service-card:hover { transform:translateY(-20px); border-color:#00bfff; box-shadow:0 40px 80px rgba(0,191,255,0.3); }
+        .service-card h3 { font-size:28px; color:#00bfff; margin-bottom:25px; }
+        .service-card ul { text-align:right; padding-right:30px; font-size:17px; color:#ccc; }
+
+        .portfolio-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:40px; max-width:1400px; margin:0 auto; }
+        .portfolio-item { position:relative; height:320px; background:#0f0f1f; border-radius:20px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.7); transition:0.5s; }
+        .portfolio-item:hover { transform:scale(1.08); }
+        .portfolio-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.7); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px; opacity:0; transition:0.5s; }
         .portfolio-item:hover .portfolio-overlay { opacity:1; }
-        .portfolio-overlay h4 { font-size:24px; margin-bottom:15px; }
-        .portfolio-overlay p { font-size:16px; color:#ccc; max-width:80%; }
+        .portfolio-overlay h4 { font-size:26px; color:#00bfff; margin-bottom:20px; }
 
-        .about-text { font-size:19px; max-width:1000px; margin:0 auto 50px; line-height:2; padding:40px; background:#0a0a1a; border-radius:18px; box-shadow:0 15px 40px rgba(0,0,0,0.6); }
-        .skills { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; max-width:1000px; margin:50px auto; }
-        .skill-item { background:#111; padding:15px 30px; border-radius:30px; font-size:16px; border:1px solid #222; transition:0.3s; }
-        .skill-item:hover { background:#00bfff; color:#000; border-color:#00bfff; }
+        .about-text { font-size:19px; max-width:1000px; margin:0 auto 60px; line-height:2; padding:50px; background:#0f0f1f; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.7); }
+        .skills { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; max-width:1000px; margin:60px auto; }
+        .skill-item { background:#111; padding:18px 35px; border-radius:40px; font-size:17px; border:1px solid #222; transition:0.4s; }
+        .skill-item:hover { background:#00bfff; color:#000; }
 
-        .testimonials { max-width:1200px; margin:60px auto; }
-        .testimonial-card { background:#0a0a1a; padding:30px; border-radius:18px; margin:20px; box-shadow:0 10px 30px rgba(0,0,0,0.5); font-style:italic; }
-        .testimonial-card cite { display:block; margin-top:20px; color:#00bfff; font-style:normal; font-weight:bold; }
+        .contact-form { max-width:900px; margin:60px auto; background:#0f0f1f; padding:50px; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.7); }
+        .contact-form input, .contact-form textarea { width:100%; padding:18px; margin:20px 0; background:#111; border:1px solid #222; color:#fff; border-radius:12px; font-size:17px; }
+        .contact-form button { padding:20px 70px; background:linear-gradient(135deg, #00bfff, #0088cc); color:#fff; font-size:26px; border:none; border-radius:60px; cursor:pointer; box-shadow:0 0 40px rgba(0,191,255,0.8); transition:0.5s; }
+        .contact-form button:hover { transform:scale(1.08); box-shadow:0 0 80px rgba(0,191,255,1); }
 
-        .contact-form { max-width:800px; margin:50px auto; background:#0a0a1a; padding:40px; border-radius:18px; box-shadow:0 15px 40px rgba(0,0,0,0.6); }
-        .contact-form input, .contact-form textarea { width:100%; padding:15px; margin:15px 0; background:#111; border:1px solid #222; color:#fff; border-radius:10px; font-size:16px; }
-        .contact-form button { padding:18px 60px; background:linear-gradient(135deg, #00bfff, #0088cc); color:#fff; font-size:22px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 0 30px rgba(0,191,255,0.6); transition:0.3s; }
-        .contact-form button:hover { transform:scale(1.05); }
-
-        .contact-info { margin:50px 0; font-size:18px; }
-        .contact-info a { color:#00bfff; text-decoration:none; }
-
-        footer { padding:50px; text-align:center; background:#000; color:#777; font-size:15px; border-top:1px solid #111; }
-        footer a { color:#00bfff; text-decoration:none; margin:0 10px; }
+        footer { padding:60px; text-align:center; background:#000; color:#777; font-size:16px; border-top:1px solid #111; }
     </style>
 </head>
 <body>
@@ -75,14 +70,12 @@
         <div class="dropdown">
             <a href="#portfolio">نمونه کارها ▼</a>
             <div class="dropdown-content">
-                <a href="#portfolio">وب‌سایت‌های شرکتی</a>
+                <a href="#portfolio">وب‌سایت شرکتی</a>
                 <a href="#portfolio">لندینگ پیج</a>
                 <a href="#portfolio">برندسازی</a>
-                <a href="#portfolio">وب‌سایت شخصی</a>
             </div>
         </div>
         <a href="#about">درباره</a>
-        <a href="#testimonials">نظرات مشتریان</a>
         <a href="#contact">تماس</a>
     </nav>
 
@@ -90,49 +83,44 @@
         <div class="hero-bg" id="particles"></div>
         <div class="logo">AMIXAMA</div>
         <div class="tagline">
-            طراحی وب حرفه‌ای با عملکرد بالا، لندینگ پیج‌های تبدیل‌محور و برندسازی دیجیتال استراتژیک<br>
-            برای کسب‌وکارهایی که به دنبال رشد واقعی و حضور قدرتمند آنلاین هستند
+            طراحی وب حرفه‌ای با عملکرد بالا و پاسخگویی سریع به نیازهای مشتریان<br>
+            لندینگ پیج‌های تبدیل‌محور با تحلیل دقیق رفتار کاربران<br>
+            برندسازی دیجیتال استراتژیک برای تثبیت جایگاه برند در بازار
         </div>
         <a href="#contact" class="hero-btn">شروع همکاری</a>
     </section>
 
     <section id="services">
-        <h2>خدمات حرفه‌ای AMIXAMA</h2>
+        <h2>خدمات حرفه‌ای</h2>
         <div class="services-grid">
             <div class="service-card">
                 <h3>طراحی و توسعه وب‌سایت</h3>
-                <p>ساخت وب‌سایت‌های کاملاً سفارشی، مدرن و بهینه‌شده برای موتورهای جستجو با تمرکز روی تجربه کاربری و سرعت بالا.</p>
                 <ul>
-                    <li>وب‌سایت شرکتی و معرفی کسب‌وکار</li>
-                    <li>فروشگاه آنلاین با پرداخت امن</li>
-                    <li>پورتفولیو شخصی و رزومه آنلاین</li>
-                    <li>پلتفرم‌های پیچیده و داشبورد مدیریتی</li>
-                    <li>بهینه‌سازی SEO فنی و محتوایی</li>
-                    <li>سازگاری کامل با موبایل و تبلت</li>
+                    <li>ساخت سایت‌های سفارشی و مدرن</li>
+                    <li>بهینه‌سازی سرعت و SEO</li>
+                    <li>سازگاری کامل با موبایل</li>
+                    <li>امنیت بالا و کد تمیز</li>
+                    <li>ادغام با سیستم‌های پرداخت</li>
                 </ul>
             </div>
             <div class="service-card">
                 <h3>لندینگ پیج تبدیل‌محور</h3>
-                <p>صفحات فرود هدفمند که برای یک هدف خاص طراحی می‌شوند: فروش محصول، جمع‌آوری ایمیل یا ثبت‌نام.</p>
                 <ul>
-                    <li>تحلیل رفتار کاربر و روانشناسی فروش</li>
-                    <li>طراحی A/B تست برای بهبود نرخ تبدیل</li>
-                    <li>فرم‌های هوشمند و اتصال به CRM</li>
-                    <li>سرعت بارگذاری زیر ۲ ثانیه</li>
-                    <li>ادغام با ابزارهای تبلیغاتی</li>
-                    <li>گزارش‌گیری و آنالیتیکس دقیق</li>
+                    <li>طراحی بر اساس روانشناسی فروش</li>
+                    <li>نرخ تبدیل بالا با A/B تست</li>
+                    <li>فرم‌های هوشمند</li>
+                    <li>اتصال به ابزارهای تبلیغاتی</li>
+                    <li>گزارش‌گیری دقیق</li>
                 </ul>
             </div>
             <div class="service-card">
-                <h3>برندسازی دیجیتال کامل</h3>
-                <p>ساخت هویت بصری قوی و یکپارچه برای برند شما در فضای دیجیتال.</p>
+                <h3>برندسازی دیجیتال</h3>
                 <ul>
-                    <li>طراحی لوگو حرفه‌ای و منحصربه‌فرد</li>
-                    <li>انتخاب پالت رنگی و تایپوگرافی</li>
-                    <li>طراحی آیکون، بنر و المان‌های گرافیکی</li>
-                    <li>راهنمای کامل استفاده از برند (Brand Guideline)</li>
-                    <li>استراتژی حضور در شبکه‌های اجتماعی</li>
-                    <li>طراحی قالب‌های پست و استوری</li>
+                    <li>طراحی لوگو منحصربه‌فرد</li>
+                    <li>پالت رنگی و تایپوگرافی</li>
+                    <li>راهنمای برند کامل</li>
+                    <li>قالب‌های شبکه‌های اجتماعی</li>
+                    <li>استراتژی حضور آنلاین</li>
                 </ul>
             </div>
         </div>
@@ -143,38 +131,38 @@
         <div class="portfolio-grid">
             <div class="portfolio-item">
                 <div class="portfolio-overlay">
-                    <h4>وب‌سایت شرکتی مدرن</h4>
-                    <p>طراحی کامل با انیمیشن‌های نرم، سرعت بالا و SEO عالی</p>
+                    <h4>وب‌سایت شرکتی حرفه‌ای</h4>
+                    <p>طراحی مدرن با انیمیشن و سرعت بالا</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-overlay">
-                    <h4>لندینگ پیج فروش محصول</h4>
-                    <p>نرخ تبدیل بیش از ۲۵% با طراحی روانشناسی‌محور</p>
+                    <h4>لندینگ پیج فروش</h4>
+                    <p>نرخ تبدیل بیش از ۳۰%</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-overlay">
-                    <h4>برندسازی کامل استارتاپ</h4>
-                    <p>لوگو، رنگ، راهنما و قالب‌های شبکه‌های اجتماعی</p>
+                    <h4>برندسازی کامل</h4>
+                    <p>لوگو و راهنمای برند</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-overlay">
-                    <h4>وب‌سایت شخصی پورتفولیو</h4>
-                    <p>طراحی مینیمال با تمرکز روی محتوا و سرعت</p>
+                    <h4>وب‌سایت شخصی</h4>
+                    <p>پورتفولیو مینیمال</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-overlay">
-                    <h4>لندینگ پیج جمع‌آوری سرنخ</h4>
-                    <p>اتصال به CRM و گزارش‌گیری خودکار</p>
+                    <h4>لندینگ پیج سرنخ</h4>
+                    <p>جمع‌آوری ایمیل هوشمند</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-overlay">
-                    <h4>هویت بصری جدید برند</h4>
-                    <p>بازطراحی کامل لوگو و المان‌های بصری</p>
+                    <h4>هویت بصری جدید</h4>
+                    <p>بازطراحی برند</p>
                 </div>
             </div>
         </div>
@@ -183,74 +171,45 @@
     <section id="about">
         <h2>درباره AMIXAMA</h2>
         <div class="about-text">
-            AMIXAMA یک استودیوی طراحی و توسعه وب مستقل است که از سال ۲۰۲۰ فعالیت خود را آغاز کرده. هدف اصلی ما ایجاد راه‌حل‌های دیجیتال کارآمد و زیبا برای کسب‌وکارهای کوچک و متوسط است.<br><br>
-            هر پروژه با تحقیق دقیق درباره صنعت، رقبا و مخاطبان هدف شروع می‌شود. ما باور داریم که یک وب‌سایت خوب نه تنها باید زیبا باشد، بلکه باید فروش بیاورد، اعتماد ایجاد کند و برند را تقویت نماید.<br><br>
-            تمرکز ویژه روی استانداردهای روز وب، امنیت، سرعت و تجربه کاربری باعث شده مشتریان ما نتایج واقعی و قابل اندازه‌گیری بگیرند.
+            AMIXAMA استودیوی تخصصی طراحی و توسعه وب است که با تمرکز روی کیفیت بالا و نتایج واقعی کار می‌کند. هر پروژه با تحقیق دقیق شروع می‌شود تا بهترین راه‌حل برای کسب‌وکار شما ارائه شود.<br><br>
+            ما به استانداردهای روز وب، امنیت، سرعت بارگذاری و تجربه کاربری عالی اهمیت می‌دهیم.
         </div>
         <div class="skills">
-            <div class="skill-item">HTML5 & CSS3</div>
+            <div class="skill-item">HTML/CSS</div>
             <div class="skill-item">JavaScript</div>
-            <div class="skill-item">Responsive Design</div>
-            <div class="skill-item">SEO Technical</div>
-            <div class="skill-item">UI/UX Design</div>
+            <div class="skill-item">UI/UX</div>
+            <div class="skill-item">SEO</div>
             <div class="skill-item">Figma</div>
-            <div class="skill-item">WordPress</div>
-            <div class="skill-item">Performance Optimization</div>
-        </div>
-    </section>
-
-    <section id="testimonials">
-        <h2>نظرات مشتریان</h2>
-        <div class="testimonials">
-            <div class="testimonial-card">
-                "همکاری با AMIXAMA بهترین تصمیم ما بود. وب‌سایت جدیدمان نرخ تبدیل را ۳ برابر کرد و ظاهر حرفه‌ای‌تری به برندمان داد."
-                <cite>— مدیرعامل شرکت فناوری نوین</cite>
-            </div>
-            <div class="testimonial-card">
-                "لندینگ پیج طراحی‌شده بسیار هدفمند بود و در کمپین تبلیغاتی ما نتایج فوق‌العاده‌ای داشت. توصیه می‌کنم!"
-                <cite>— مسئول بازاریابی استارتاپ فروش آنلاین</cite>
-            </div>
-            <div class="testimonial-card">
-                "برندسازی کامل و حرفه‌ای دریافت کردیم. لوگو و راهنمای برند دقیقاً همان چیزی بود که نیاز داشتیم."
-                <cite>— بنیان‌گذار برند مد</cite>
-            </div>
+            <div class="skill-item">Responsive</div>
         </div>
     </section>
 
     <section id="contact">
         <h2>شروع همکاری</h2>
-        <div class="contact-info">
-            برای مشاوره رایگان و بررسی پروژه‌تان با ما در ارتباط باشید:<br><br>
-            <a href="https://t.me/AMIXAMA">تلگرام: @AMIXAMA</a> • 
-            ایمیل: info@amixama.com • 
-            تلفن: ۰۹۰۳-XXX-XXXX
-        </div>
         <div class="contact-form">
             <form>
-                <input type="text" placeholder="نام و نام خانوادگی" required>
+                <input type="text" placeholder="نام کامل" required>
                 <input type="email" placeholder="ایمیل" required>
                 <input type="tel" placeholder="شماره تماس">
-                <textarea rows="6" placeholder="توضیحات پروژه یا پیام شما"></textarea>
+                <textarea rows="7" placeholder="توضیحات پروژه"></textarea>
                 <button type="submit">ارسال پیام</button>
             </form>
         </div>
+        <p style="margin-top:40px; font-size:18px;">تلگرام: <a href="https://t.me/AMIXAMA" style="color:#00bfff;">@AMIXAMA</a></p>
     </section>
 
     <footer>
-        © 2025 AMIXAMA – همه حقوق محفوظ است<br>
-        <a href="#privacy">حریم خصوصی</a> • 
-        <a href="#terms">شرایط استفاده</a>
+        © 2025 AMIXAMA – همه حقوق محفوظ
     </footer>
 
     <script>
-        // ذرات glowing در هیرو
         const container = document.getElementById('particles');
-        for (let i = 0; i < 22; i++) {
+        for (let i = 0; i < 25; i++) {
             const p = document.createElement('div');
             p.classList.add('particle');
             p.style.left = Math.random() * 100 + '%';
-            p.style.animationDelay = Math.random() * 18 + 's';
-            p.style.animationDuration = 12 + Math.random() * 12 + 's';
+            p.style.animationDelay = Math.random() * 20 + 's';
+            p.style.animationDuration = 15 + Math.random() * 15 + 's';
             container.appendChild(p);
         }
     </script>
