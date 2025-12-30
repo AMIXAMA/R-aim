@@ -4,43 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMIXAMA - طراحی وب حرفه‌ای</title>
+    <meta name="description" content="AMIXAMA متخصص طراحی وب‌سایت حرفه‌ای، لندینگ پیج تبدیل‌محور و برندسازی دیجیتال با سبک مدرن سایبرپانک.">
     <style>
         body { margin:0; padding:0; font-family: Tahoma, sans-serif; background:#000; color:#e0e0e0; overflow-x:hidden; }
-        nav { position:fixed; top:0; width:100%; background:rgba(0,0,0,0.92); padding:18px 0; text-align:center; z-index:1000; backdrop-filter:blur(12px); border-bottom:1px solid #111; }
-        nav a { color:#fff; margin:0 20px; font-size:18px; font-weight:bold; text-decoration:none; transition:0.4s; }
-        nav a:hover { color:#00ffff; text-shadow:0 0 15px #00ffff; }
+        nav { position:fixed; top:0; width:100%; background:rgba(0,0,0,0.9); padding:20px 0; text-align:center; z-index:1000; backdrop-filter:blur(15px); border-bottom:2px solid #00ffff; box-shadow:0 0 30px rgba(0,255,255,0.3); }
+        nav a { color:#fff; margin:0 25px; font-size:18px; font-weight:bold; text-decoration:none; transition:0.4s; }
+        nav a:hover { color:#00ffff; text-shadow:0 0 20px #00ffff; }
 
-        section { padding:100px 20px; text-align:center; position:relative; }
+        section { padding:120px 20px; text-align:center; position:relative; }
 
-        /* هوم - استایل قبلی حفظ شده + دکمه واتس‌اپ جدید */
-        #home { background:linear-gradient(120deg, #000428, #004e92); min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; }
-        .hero-bg { position:absolute; inset:0; overflow:hidden; }
-        .particle { position:absolute; width:4px; height:4px; background:#00ffff; border-radius:50%; box-shadow:0 0 20px #00ffff; opacity:0.7; animation:float 20s infinite linear; }
-        @keyframes float { 0% { transform:translateY(100vh); opacity:0; } 40% { opacity:0.8; } 100% { transform:translateY(-100px) translateX(120px); opacity:0; } }
+        /* Home - سایبرپانک نیون cyan جدید */
+        #home { background:linear-gradient(145deg, #000d1a, #001122); min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+        .hero-bg { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+        .particle { position:absolute; width:6px; height:6px; background:#00ffff; border-radius:50%; box-shadow:0 0 30px #00ffff; opacity:0.6; animation:cyberFloat 25s infinite linear; }
+        @keyframes cyberFloat { 0% { transform:translateY(100vh) rotate(0deg); opacity:0; } 30% { opacity:0.8; } 100% { transform:translateY(-150px) translateX(150px) rotate(720deg); opacity:0; } }
 
-        .logo { font-size:120px; font-weight:bold; color:#fff; letter-spacing:40px; text-shadow:0 0 80px #00ffff, 0 0 160px #00bfff; animation:neonPulse 4s infinite alternate; }
-        @keyframes neonPulse { from { text-shadow:0 0 80px #00ffff; } to { text-shadow:0 0 160px #00ffff, 0 0 240px #00bfff; } }
+        .logo { font-size:140px; font-weight:bold; color:#00ffff; letter-spacing:50px; text-shadow:0 0 100px #00ffff, 0 0 200px #00bfff; animation:cyberNeon 5s infinite alternate; }
+        @keyframes cyberNeon { from { text-shadow:0 0 100px #00ffff; } to { text-shadow:0 0 200px #00ffff, 0 0 300px #00bfff; } }
 
-        .tagline { font-size:30px; color:#aaa; max-width:1000px; margin:60px 0 50px; line-height:1.8; }
+        .tagline { font-size:32px; color:#88ffff; max-width:1100px; margin:70px 0 90px; line-height:1.9; opacity:0.9; }
+        .hero-btn { padding:30px 110px; background:transparent; color:#00ffff; font-size:32px; font-weight:bold; border:4px solid #00ffff; border-radius:80px; text-decoration:none; box-shadow:0 0 80px rgba(0,255,255,0.8); transition:0.6s; animation:cyberPulse 3s infinite; }
+        .hero-btn:hover { background:#00ffff; color:#000; box-shadow:0 0 150px rgba(0,255,255,1); transform:scale(1.15); }
+        @keyframes cyberPulse { 0% { box-shadow:0 0 80px rgba(0,255,255,0.8); } 50% { box-shadow:0 0 120px rgba(0,255,255,1); } 100% { box-shadow:0 0 80px rgba(0,255,255,0.8); } }
 
-        .btn-group { display:flex; gap:40px; flex-wrap:wrap; justify-content:center; }
-        .hero-btn { padding:28px 100px; background:#00ffff; color:#000; font-size:30px; font-weight:bold; border-radius:70px; text-decoration:none; box-shadow:0 0 60px rgba(0,255,255,0.9); transition:0.5s; animation:btnGlow 2s infinite; }
-        .hero-btn:hover { box-shadow:0 0 100px rgba(0,255,255,1); transform:scale(1.12); }
-        .whatsapp-btn { padding:28px 80px; background:#25D366; color:#fff; font-size:30px; font-weight:bold; border-radius:70px; text-decoration:none; box-shadow:0 0 60px rgba(37,211,102,0.8); transition:0.5s; display:inline-flex; align-items:center; gap:15px; }
-        .whatsapp-btn:hover { box-shadow:0 0 100px rgba(37,211,102,1); transform:scale(1.12); }
-        @keyframes btnGlow { 0% { box-shadow:0 0 60px rgba(0,255,255,0.9); } 50% { box-shadow:0 0 90px rgba(0,255,255,1); } 100% { box-shadow:0 0 60px rgba(0,255,255,0.9); } }
+        h2 { font-size:44px; color:#00ffff; margin-bottom:70px; position:relative; text-shadow:0 0 20px #00ffff; }
+        h2::after { content:''; width:160px; height:6px; background:#00ffff; position:absolute; bottom:-25px; left:50%; transform:translateX(-50%); box-shadow:0 0 20px #00ffff; }
 
-        /* بقیه استایل‌ها مثل قبل... */
-        h2 { font-size:42px; color:#00ffff; margin-bottom:60px; position:relative; }
-        h2::after { content:''; width:140px; height:5px; background:#00ffff; position:absolute; bottom:-20px; left:50%; transform:translateX(-50%); border-radius:3px; }
+        .services-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(360px,1fr)); gap:50px; max-width:1400px; margin:0 auto; }
+        .service-card { background:rgba(13,13,32,0.8); padding:50px; border-radius:25px; box-shadow:0 20px 60px rgba(0,0,0,0.8); border:2px solid transparent; transition:0.6s; backdrop-filter:blur(5px); }
+        .service-card:hover { border-color:#00ffff; box-shadow:0 40px 80px rgba(0,255,255,0.3); transform:translateY(-20px); }
+        .service-card h3 { font-size:30px; color:#00ffff; margin-bottom:25px; text-shadow:0 0 10px #00ffff; }
 
-        .contact-links { margin:50px 0; font-size:22px; }
-        .contact-links a { color:#fff; text-decoration:none; margin:0 20px; padding:15px 40px; border-radius:50px; display:inline-block; transition:0.3s; }
-        .contact-links a.telegram { background:#0088cc; box-shadow:0 0 30px rgba(0,136,204,0.7); }
-        .contact-links a.whatsapp { background:#25D366; box-shadow:0 0 30px rgba(37,211,102,0.7); }
-        .contact-links a:hover { transform:scale(1.1); }
+        .portfolio-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(340px,1fr)); gap:40px; max-width:1400px; margin:0 auto; }
+        .portfolio-item { position:relative; height:360px; border-radius:25px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.8); transition:0.6s; }
+        .portfolio-item img { width:100%; height:100%; object-fit:cover; transition:0.6s; }
+        .portfolio-item:hover img { transform:scale(1.15); }
+        .portfolio-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.75); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:0.6s; }
+        .portfolio-item:hover .portfolio-overlay { opacity:1; }
+        .portfolio-overlay h4 { font-size:28px; color:#00ffff; margin-bottom:20px; text-shadow:0 0 15px #00ffff; }
+        .portfolio-overlay p { color:#88ffff; font-size:18px; }
 
-        footer { padding:70px; text-align:center; background:#000; color:#777; font-size:16px; border-top:1px solid #111; }
+        .about-text { font-size:20px; max-width:1100px; margin:0 auto 70px; line-height:2; padding:60px; background:rgba(13,13,32,0.8); border-radius:25px; box-shadow:0 20px 60px rgba(0,0,0,0.8); backdrop-filter:blur(5px); }
+
+        .contact-form { max-width:900px; margin:70px auto; background:rgba(13,13,32,0.8); padding:60px; border-radius:25px; box-shadow:0 20px 60px rgba(0,0,0,0.8); backdrop-filter:blur(5px); }
+        .contact-form input, .contact-form textarea { width:100%; padding:20px; margin:25px 0; background:rgba(0,0,0,0.5); border:2px solid #222; color:#fff; border-radius:15px; font-size:18px; transition:0.3s; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color:#00ffff; box-shadow:0 0 30px rgba(0,255,255,0.5); }
+        .contact-form button { padding:25px 80px; background:transparent; color:#00ffff; font-size:28px; font-weight:bold; border:4px solid #00ffff; border-radius:70px; cursor:pointer; box-shadow:0 0 80px rgba(0,255,255,0.8); transition:0.6s; }
+        .contact-form button:hover { background:#00ffff; color:#000; box-shadow:0 0 150px rgba(0,255,255,1); transform:scale(1.1); }
+
+        .contact-links { margin-top:60px; display:flex; justify-content:center; gap:40px; flex-wrap:wrap; }
+        .contact-links a { padding:20px 60px; border-radius:60px; font-size:22px; text-decoration:none; transition:0.5s; box-shadow:0 0 40px rgba(0,255,255,0.5); }
+        .contact-links a.telegram { background:#0088cc; color:#fff; }
+        .contact-links a.whatsapp { background:#25D366; color:#fff; }
+        .contact-links a:hover { transform:scale(1.1); box-shadow:0 0 80px rgba(0,255,255,0.8); }
+
+        footer { padding:80px; text-align:center; background:#000; color:#777; font-size:16px; border-top:2px solid #111; box-shadow:0 0 30px rgba(0,255,255,0.2); }
     </style>
 </head>
 <body>
@@ -57,27 +75,100 @@
         <div class="hero-bg" id="particles"></div>
         <div class="logo">AMIXAMA</div>
         <div class="tagline">
-            طراحی وب حرفه‌ای با عملکرد بالا و زیبایی خیره‌کننده<br>
-            لندینگ پیج‌های تبدیل‌محور و برندسازی دیجیتال قدرتمند
+            طراحی وب حرفه‌ای با عملکرد بالا و زیبایی سایبرپانک<br>
+            لندینگ پیج‌های تبدیل‌محور و برندسازی دیجیتال مدرن
         </div>
-        <div class="btn-group">
-            <a href="#contact" class="hero-btn">شروع همکاری</a>
-            <a href="https://wa.me/989123456789" class="whatsapp-btn" target="_blank">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.884 3.488"/></svg>
-                چت در واتس‌اپ
-            </a>
+        <a href="#contact" class="hero-btn">شروع همکاری</a>
+    </section>
+
+    <section id="services">
+        <h2>خدمات حرفه‌ای</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>طراحی و توسعه وب‌سایت</h3>
+                <p>ساخت سایت‌های سفارشی، سریع، امن و بهینه با تمرکز روی تجربه کاربری عالی و SEO قوی.</p>
+            </div>
+            <div class="service-card">
+                <h3>لندینگ پیج تبدیل‌محور</h3>
+                <p>صفحات فرود هدفمند با طراحی روانشناسی و نرخ تبدیل بالا برای فروش و سرنخ.</p>
+            </div>
+            <div class="service-card">
+                <h3>برندسازی دیجیتال</h3>
+                <p>هویت بصری کامل شامل لوگو، پالت رنگی، تایپوگرافی و راهنمای برند.</p>
+            </div>
         </div>
     </section>
 
-    <!-- بقیه بخش‌ها مثل قبل (services, portfolio, about, contact) -->
+    <section id="portfolio">
+        <h2>نمونه کارهای اخیر</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="https://cdn.dribbble.com/userupload/12228095/file/original-4742f1948eb6d13c16949c18b1ab7640.png" alt="وب‌سایت شرکتی">
+                <div class="portfolio-overlay">
+                    <h4>وب‌سایت شرکتی مدرن</h4>
+                    <p>طراحی سایبرپانک با انیمیشن</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://htmlburger.com/blog/wp-content/uploads/2024/06/modern-dark-theme-websites.jpg" alt="لندینگ پیج">
+                <div class="portfolio-overlay">
+                    <h4>لندینگ پیج فروش</h4>
+                    <p>نرخ تبدیل بالا</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://www.sliderrevolution.com/wp-content/uploads/2025/10/zoom.jpg" alt="برندسازی">
+                <div class="portfolio-overlay">
+                    <h4>برندسازی کامل</h4>
+                    <p>لوگو و هویت بصری</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://www.founderjar.com/wp-content/uploads/2024/02/1.-Cognitive-Creation-Best-Neon-Website-Design-Examples.jpeg" alt="پورتفولیو">
+                <div class="portfolio-overlay">
+                    <h4>پورتفولیو شخصی</h4>
+                    <p>طراحی نیون</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://uploads-ssl.webflow.com/62fac9a72363186872484cff/63322b4f48f6ca81893cbfdf_pixelfleek-preview.png" alt="لندینگ سرنخ">
+                <div class="portfolio-overlay">
+                    <h4>لندینگ پیج سرنخ</h4>
+                    <p>جمع‌آوری هوشمند</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://images.wondershare.com/filmora/article-images/midnight-reactor-core-blue-neon-green-color-palette.jpg" alt="هویت بصری">
+                <div class="portfolio-overlay">
+                    <h4>هویت بصری جدید</h4>
+                    <p>بازطراحی برند</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>درباره AMIXAMA</h2>
+        <div class="about-text">
+            AMIXAMA استودیوی تخصصی طراحی و توسعه وب با سبک مدرن سایبرپانک است. تمرکز ما روی ایجاد سایت‌های زیبا، سریع و سودآور برای کسب‌وکارهای دیجیتال است. هر پروژه با تحقیق دقیق و خلاقیت بالا اجرا می‌شود.
+        </div>
+    </section>
 
     <section id="contact">
         <h2>تماس با ما</h2>
         <div class="contact-links">
             <a href="https://t.me/AMIXAMA" class="telegram" target="_blank">تلگرام: @AMIXAMA</a>
-            <a href="https://wa.me/989123456789" class="whatsapp" target="_blank">واتس‌اپ: چت مستقیم</a>
+            <a href="https://wa.me/989123456789" class="whatsapp" target="_blank">واتس‌اپ: چت مستقیم</a> <!-- شماره رو درست کن -->
         </div>
-        <!-- فرم تماس اگر می‌خوای نگه دار -->
+        <div class="contact-form">
+            <form>
+                <input type="text" placeholder="نام کامل" required>
+                <input type="email" placeholder="ایمیل" required>
+                <input type="tel" placeholder="شماره تماس">
+                <textarea rows="8" placeholder="توضیحات پروژه یا پیام شما"></textarea>
+                <button type="submit">ارسال پیام</button>
+            </form>
+        </div>
     </section>
 
     <footer>
@@ -86,12 +177,12 @@
 
     <script>
         const container = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 40; i++) {
             const p = document.createElement('div');
             p.classList.add('particle');
             p.style.left = Math.random() * 100 + '%';
-            p.style.animationDelay = Math.random() * 20 + 's';
-            p.style.animationDuration = 15 + Math.random() * 20 + 's';
+            p.style.animationDelay = Math.random() * 25 + 's';
+            p.style.animationDuration = 20 + Math.random() * 20 + 's';
             container.appendChild(p);
         }
     </script>
