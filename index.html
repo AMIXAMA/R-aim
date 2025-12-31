@@ -1,178 +1,550 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AMIXAMA Digital Service - خدمات دیجیتال و طراحی مدرن.">
-    <title>AMIXAMA Digital Service</title>
-    <style>
-        /* ------------------------
-        متغیرها و تنظیمات ابتدایی
-        ------------------------- */
-        :root {
-            --bg-color: #121212;
-            --text-color: #fff;
-            --neon-color: #00f0ff;
-            --highlight-color: #ff00ff;
-            --font-family: 'Courier New', Courier, monospace;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AMIXAMA — سامانه‌های دیجیتال</title>
+<meta name="description" content="AMIXAMA — طراحی و توسعه وب، فروشگاه آنلاین، هویت سازمانی، سئو و پشتیبانی فنی. سامانه‌هایی کاربردی و کم‌حاشیه.">
+<meta name="theme-color" content="#0b0b0b">
+<link rel="canonical" href="https://example.com/">
+<meta property="og:title" content="AMIXAMA — سامانه‌های دیجیتال">
+<meta property="og:description" content="خدمات توسعه وب، تجارت الکترونیک، هویت بصری و پشتیبانی فنی — تمرکز بر عملکرد.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=60">
+<!-- سبک brutalist با المان‌های متحرک؛ هیچ صورتی به کار نرفته -->
+<style>
+  :root{
+    --bg:#0b0b0b;         /* پس‌زمینه تیره */
+    --paper:#ffffff;      /* متن روشن روی المان‌ها */
+    --muted:#9aa3a8;
+    --neon: #00f0ff;      /* نئون فیروزه‌ای */
+    --accent:#ffcc00;     /* زرد گرم برای تاکید (نه صورتی) */
+    --danger:#ff3b30;     /* قرمز برای هشدارها */
+    --border: #e6e6e6;
+    --container:1200px;
+    --radius:6px;
+    --mono: "Courier New", monospace;
+    --sans: "Vazirmatn", "Segoe UI", Roboto, Arial, sans-serif;
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  /* ریست سبک‌ها */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--sans);
+    background:var(--bg);
+    color:var(--paper);
+    direction:rtl;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
 
-        body, html {
-            height: 100%;
-            font-family: var(--font-family);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+  .wrap{ width:100%; max-width:var(--container); margin:0 auto; padding:0 20px; }
 
-        /* ------------------------
-        استایل هدر و نوار ناوبری
-        ------------------------- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 10;
-        }
+  /* هِدر Brutalist: خطوط قوی و حاشیه واضح */
+  header{
+    position:fixed; left:0; right:0; top:0; z-index:1200;
+    background:transparent;
+    border-bottom:6px solid var(--border);
+    padding:18px 0;
+  }
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+  }
+  .logo{
+    font-weight:900; font-size:20px; letter-spacing:6px;
+    color:var(--paper); text-transform:uppercase;
+    border:3px solid var(--paper); padding:6px 12px; border-radius:4px;
+    background:transparent;
+  }
+  nav.nav{ display:flex; gap:12px; align-items:center; }
+  .nav a{
+    color:var(--paper); text-decoration:none; font-weight:800;
+    padding:10px 14px; border:3px solid transparent; border-radius:4px;
+    transition: transform .18s ease, background .18s ease, color .18s ease;
+  }
+  .nav a:hover{
+    transform:translateY(-3px);
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border-color:var(--paper);
+    color:var(--bg);
+  }
 
-        .logo {
-            color: var(--neon-color);
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color);
-        }
+  /* CTA */
+  .cta{ display:flex; gap:10px; align-items:center }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 14px; border-radius:4px; font-weight:800; font-size:14px;
+    background:transparent; color:var(--paper); border:3px solid var(--paper);
+    cursor:pointer; text-decoration:none;
+    transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+  }
+  .btn:active{ transform:translateY(1px) scale(.995) }
+  .btn--primary{
+    background:var(--neon); color:#001018; border-color:var(--neon);
+    box-shadow:0 8px 30px rgba(0,240,255,0.06);
+  }
+  .btn--ghost{
+    background:transparent; color:var(--paper); border-color:var(--paper);
+  }
 
-        /* ------------------------
-        انیمیشن AMIXAMA در Home
-        ------------------------- */
-        .hero {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: var(--bg-color);
-            overflow: hidden;
-        }
+  /* هِرو: عنوان بزرگ برجسته با نئون و انیمیشن */
+  main{ padding-top:100px; }
+  .hero{
+    min-height:78vh; display:flex; align-items:center; justify-content:center;
+    padding:48px 20px; position:relative; overflow:hidden;
+    border-bottom:8px solid var(--border);
+  }
+  .hero-inner{ width:100%; max-width:var(--container); display:flex; gap:28px; align-items:center; justify-content:space-between; }
 
-        .hero h1 {
-            font-size: 6rem;
-            color: var(--highlight-color);
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            animation: fadeInTranslate 3s ease-in-out infinite alternate;
-            text-shadow: 0 0 5px var(--neon-color), 0 0 15px var(--neon-color);
-        }
+  .hero-left{ max-width:760px; }
+  .kicker{
+    display:inline-block; font-weight:900; letter-spacing:3px; font-size:12px;
+    padding:6px 10px; border:3px solid var(--neon); color:var(--neon); text-transform:uppercase;
+    margin-bottom:18px;
+  }
 
-        @keyframes fadeInTranslate {
-            0% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  /* عنوان اصلی - brutal + neon */
+  .hero-title{
+    font-size:clamp(48px, 9vw, 120px);
+    line-height:0.9;
+    font-weight:900;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    color:var(--paper);
+    margin:0 0 18px 0;
+    display:inline-block;
+    position:relative;
+    padding:8px 12px;
+    border:6px solid var(--paper);
+    background:transparent;
+    /* افکت نئون داخلی */
+    box-shadow:
+      0 0 0 0 rgba(0,0,0,0),
+      0 8px 30px rgba(0,240,255,0.04);
+    transform-origin:center;
+    transition: transform .48s cubic-bezier(.2,.9,.25,1), letter-spacing .48s ease;
+  }
 
-        /* ------------------------
-        بخش خدمات
-        ------------------------- */
-        .services {
-            padding: 80px 20px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
+  /* نوار نئون حرکت‌کننده (glint) */
+  .hero-title::after{
+    content:"";
+    position:absolute;
+    top:-8px; bottom:-8px; left:-8px; right:-8px;
+    border:4px solid transparent;
+    pointer-events:none;
+  }
+  /* لایه نئون متحرک */
+  .neon-layer{
+    position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
+    filter:blur(10px); opacity:0.18;
+    background: linear-gradient(90deg, rgba(0,240,255,0.9), rgba(255,204,0,0.95));
+    transform:translateX(-30%);
+    transition: transform 1.6s cubic-bezier(.2,.9,.3,1), opacity .6s ease;
+  }
 
-        .services h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--highlight-color);
-        }
+  /* حالت فعال (افزایش فاصله و پالس) */
+  .hero-title.active{ transform: translateY(-6px) scale(1.02); letter-spacing:12px; }
+  .hero-title.active + .neon-layer{ transform:translateX(0); opacity:0.28; }
 
-        .services .service {
-            background-color: #222;
-            padding: 30px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
-            text-align: left;
-        }
+  /* زیرعنوان و CTA */
+  .hero-sub{ color:var(--muted); font-size:16px; max-width:54ch; margin-bottom:18px; }
+  .hero-ctas{ display:flex; gap:12px; align-items:center; flex-wrap:wrap }
 
-        .services .service h3 {
-            font-size: 2rem;
-            color: var(--neon-color);
-            margin-bottom: 15px;
-        }
+  /* ستون سمت راست — کارت‌های برجسته با کادر سنگین */
+  .hero-right{ width:320px; display:flex; flex-direction:column; gap:14px; }
+  .card{
+    background:var(--bg); border:6px solid var(--paper); padding:16px; border-radius:4px; text-align:left;
+    box-shadow:none;
+  }
+  .card h4{ margin-bottom:6px; color:var(--neon); font-size:14px; letter-spacing:2px; font-weight:900; }
+  .card p{ color:var(--paper); font-size:14px; }
 
-        .services .service p {
-            color: var(--text-color);
-        }
+  /* خدمات — شبکه صریح و blocky */
+  section.section{ padding:56px 20px; border-bottom:8px solid var(--border); }
+  .wrap-grid{ width:100%; max-width:var(--container); margin:0 auto; }
+  .h2{
+    font-size:20px; font-weight:900; letter-spacing:2px; margin-bottom:18px; color:var(--paper);
+  }
 
-        /* ------------------------
-        footer
-        ------------------------- */
-        footer {
-            background-color: rgba(0, 0, 0, 0.7);
-            color: var(--text-color);
-            padding: 20px;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
+  .services-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;
+  }
+  .service{
+    background:transparent; border:6px solid var(--paper); padding:18px; border-radius:4px;
+    text-align:left;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .service h3{ font-size:16px; margin-bottom:10px; color:var(--accent); font-weight:900; letter-spacing:1px; }
+  .service p{ color:var(--muted); font-size:14px; }
 
-    </style>
+  .service:hover{
+    transform:translateY(-6px);
+    background: linear-gradient(180deg, rgba(0,240,255,0.03), rgba(255,204,0,0.02));
+    box-shadow:0 12px 40px rgba(0,0,0,0.6);
+  }
+
+  /* نمونه‌کارها — کارت‌های خشن با انیمیشن hover */
+  .portfolio{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:12px; }
+  .card-portfolio{
+    border:6px solid var(--paper); padding:0; overflow:hidden; border-radius:4px; background:var(--bg);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .card-portfolio img{ width:100%; height:160px; object-fit:cover; display:block; }
+  .card-portfolio .meta{ padding:12px; color:var(--paper); text-align:left; }
+  .card-portfolio h4{ color:var(--neon); font-weight:900; margin-bottom:6px; }
+  .card-portfolio:hover{ transform:translateY(-8px); box-shadow:0 18px 60px rgba(0,0,0,0.7); }
+
+  /* تماس */
+  .contact-grid{ display:grid; grid-template-columns:1fr 320px; gap:18px; align-items:start; }
+  .form{ border:6px solid var(--paper); padding:16px; border-radius:4px; background:transparent; }
+  .input, .textarea{
+    width:100%; padding:10px 12px; border:3px solid var(--border); background:transparent; color:var(--paper);
+    margin-bottom:10px; border-radius:4px; font-size:14px;
+  }
+  .textarea{ min-height:140px; resize:vertical; }
+
+  /* فوتر */
+  footer{ padding:26px 20px; text-align:center; color:var(--muted); border-top:6px solid var(--border); }
+
+  /* انیمیشن‌های کوچک: خطوط متحرک، emphasis */
+  .ticker{
+    display:block; width:100%; overflow:hidden; white-space:nowrap; margin-top:8px; color:var(--muted); font-size:13px;
+  }
+  .ticker span{
+    display:inline-block; padding-right:40px; animation: ticker 14s linear infinite;
+  }
+  @keyframes ticker{ 0%{ transform:translateX(0) } 100%{ transform:translateX(-100%) } }
+
+  /* ریسپانسیو */
+  @media(max-width:1024px){
+    .hero-inner{ flex-direction:column; align-items:flex-start; gap:18px; }
+    .hero-right{ width:100%; }
+    .contact-grid{ grid-template-columns:1fr; }
+  }
+  @media(max-width:720px){
+    .nav{ display:none }
+    .hero-title{ font-size:clamp(28px, 12vw, 72px); letter-spacing:3px; }
+    .logo{ font-size:16px; padding:4px 8px; letter-spacing:4px; border-width:2px }
+    header{ padding:12px 0 }
+  }
+
+  /* reduced motion */
+  @media(prefers-reduced-motion: reduce){
+    .hero-title, .neon-layer, .ticker span, .service:hover, .card-portfolio:hover { animation:none !important; transition:none !important; transform:none !important; }
+  }
+
+  /* فوکوس منطقی برای دسترسی */
+  .focus-outline{ outline:3px solid rgba(0,240,255,0.12); outline-offset:3px; border-radius:4px; }
+</style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <div class="logo">AMIXAMA</div>
-    </header>
+  <!-- HEADER -->
+  <header>
+    <div class="wrap header-inner">
+      <div class="brand">
+        <div class="logo" id="logo">AMIXAMA</div>
+        <div style="font-weight:700; color:var(--muted); font-size:13px">Digital Systems</div>
+      </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <h1>AMIXAMA</h1>
+      <nav class="nav" role="navigation" aria-label="ناوبری">
+        <a href="#home">خانه</a>
+        <a href="#services">خدمات</a>
+        <a href="#portfolio">نمونه‌کارها</a>
+        <a href="#about">درباره</a>
+        <a href="#contact">تماس</a>
+      </nav>
+
+      <div class="cta">
+        <a class="btn btn--ghost" href="https://t.me/AMIXAMA" target="_blank" rel="noopener">تلگرام</a>
+        <a class="btn btn--primary" href="https://wa.me/989123456789" target="_blank" rel="noopener">واتس‌اپ</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero" role="region" aria-label="صفحه اصلی">
+      <div class="hero-inner wrap">
+        <div class="hero-left">
+          <div class="kicker">سیستم، نه تزئین</div>
+
+          <h1 class="hero-title" id="heroTitle">AMIXAMA</h1>
+          <div class="neon-layer" aria-hidden="true"></div>
+
+          <p class="hero-sub">AMIXAMA سامانه‌های دیجیتال کاربردی و قابل اتکا می‌سازد: طراحی وب، تجارت الکترونیک، هویت سازمانی و پشتیبانی فنی. راهکارهایی ساده، دقیق و قابل اتکا برای کسب‌وکارهای حرفه‌ای.</p>
+
+          <div class="hero-ctas" style="margin-top:18px">
+            <a class="btn btn--primary" href="#contact">درخواست مشاوره</a>
+            <a class="btn btn--ghost" href="#services">مشاهده خدمات</a>
+          </div>
+
+          <div class="ticker" aria-hidden="true" style="margin-top:18px">
+            <span>تحویل مرحله‌ای • معماری مقیاس‌پذیر • پشتیبانی ۲۴/۷ • تمرکز روی عملکرد</span>
+          </div>
+        </div>
+
+        <aside class="hero-right" aria-hidden="false">
+          <div class="card">
+            <h4>نتیجه‌محوری</h4>
+            <p>هر پروژه با معیارهای کسب‌وکار سنجیده می‌شود: KPI مشخص، تست و تحویل مرحله‌ای.</p>
+          </div>
+          <div class="card">
+            <h4>امنیت و نگهداری</h4>
+            <p>پکیج‌های SLA، بکاپ، و مانیتورینگ برای تضمین ثبات سیستم‌ها.</p>
+          </div>
+        </aside>
+      </div>
     </section>
 
-    <!-- SERVICES SECTION -->
-    <section class="services">
-        <h2>خدمات ما</h2>
-        <div class="service">
-            <h3>طراحی و توسعه وب‌سایت</h3>
-            <p>سایت‌های واکنش‌گرا و بهینه‌شده برای موتورهای جستجو</p>
-        </div>
-        <div class="service">
+    <!-- SERVICES -->
+    <section id="services" class="section" aria-labelledby="servicesTitle">
+      <div class="wrap-grid">
+        <h2 class="h2" id="servicesTitle">خدمات</h2>
+        <div class="services-grid" role="list">
+          <div class="service" role="listitem">
+            <h3>طراحی و توسعه وب</h3>
+            <p>سایت‌های واکنش‌گرا، معماری تمیز و تست‌پذیر، کد قابل نگهداری برای رشد بلندمدت.</p>
+          </div>
+
+          <div class="service" role="listitem">
             <h3>فروشگاه آنلاین</h3>
-            <p>سیستم‌های فروشگاهی با امنیت بالا و قابلیت مقیاس‌پذیری</p>
+            <p>پلتفرم تجارت الکترونیک با درگاه، مدیریت سفارشات و مسیر افزایش فروش.</p>
+          </div>
+
+          <div class="service" role="listitem">
+            <h3>هویت سازمانی</h3>
+            <p>لوگو، پالت رنگ، نگارش راهنمای برند؛ ابزارهایی برای ثبات و تاثیر برند.</p>
+          </div>
+
+          <div class="service" role="listitem">
+            <h3>سئو و آنالیز</h3>
+            <p>آنالیز فنی، بهینه‌سازی محتوا و مانیتورینگ نتایج برای بهبود دیده‌شدن.</p>
+          </div>
+
+          <div class="service" role="listitem">
+            <h3>پشتیبانی فنی</h3>
+            <p>مانیتورینگ، آپدیت‌های امنیتی و پاسخ سریع به موارد بحرانی.</p>
+          </div>
+
+          <div class="service" role="listitem">
+            <h3>مشاوره فنی</h3>
+            <p>نقشهٔ راه فنی، انتخاب پشته و طراحی معماری مقیاس‌پذیر.</p>
+          </div>
         </div>
-        <div class="service">
-            <h3>اپلیکیشن‌های موبایل</h3>
-            <p>توسعه اپلیکیشن‌های موبایل و وب‌سایت‌های PWA</p>
-        </div>
+      </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        © 2025 AMIXAMA Digital Service - همه حقوق محفوظ
-    </footer>
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="section" aria-labelledby="portfolioTitle">
+      <div class="wrap-grid">
+        <h2 class="h2" id="portfolioTitle">نمونه‌کارها</h2>
+        <div class="portfolio" id="portfolioGrid" role="list">
+          <article class="card-portfolio" tabindex="0" data-src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&q=80" data-title="وب‌سایت شرکتی" data-desc="سازمان‌دهی محتوای شرکت، سرعت و امنیت بالا">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=60" alt="وب‌سایت شرکتی">
+            <div class="meta"><h4>وب‌سایت شرکتی</h4><p>طراحی ساختاری و پنل مدیریت ساده.</p></div>
+          </article>
 
+          <article class="card-portfolio" tabindex="0" data-src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80" data-title="فروشگاه آنلاین" data-desc="پلتفرم فروش با مدیریت سفارش">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=60" alt="فروشگاه آنلاین">
+            <div class="meta"><h4>فروشگاه آنلاین</h4><p>یکپارچه‌سازی درگاه و مدیریت محصولات.</p></div>
+          </article>
+
+          <article class="card-portfolio" tabindex="0" data-src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&q=80" data-title="داشبورد مدیریتی" data-desc="داشبورد KPI برای تصمیم‌گیری">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=900&q=60" alt="داشبورد">
+            <div class="meta"><h4>داشبورد مدیریتی</h4><p>گزارشات سفارشی و کنترل پنل مدیریتی.</p></div>
+          </article>
+        </div>
+
+        <div style="text-align:center; margin-top:16px">
+          <button class="btn" id="loadMore">بارگذاری بیشتر</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-labelledby="aboutTitle">
+      <div class="wrap-grid">
+        <h2 class="h2" id="aboutTitle">دربارهٔ ما</h2>
+        <p style="color:var(--muted); max-width:900px;">
+          AMIXAMA یک تیم فنی‌محور است که سامانه‌های قابل اعتماد و عملی برای کسب‌وکارها می‌سازد. تمرکز ما اجرای دقیق، امنیت و خروجی قابل اندازه‌گیری است؛ نه جلوه‌های بی‌حاصل. هر پروژه با اهداف کسب‌وکار شما تطبیق داده می‌شود و راه‌حل‌های پیاده‌سازی‌شده قابل نگهداری و توسعه خواهند بود.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section" aria-labelledby="contactTitle">
+      <div class="wrap-grid">
+        <h2 class="h2" id="contactTitle">تماس</h2>
+        <div class="contact-grid">
+          <form class="form" id="contactForm" onsubmit="return false" aria-label="فرم تماس">
+            <input class="input" id="name" name="name" type="text" placeholder="نام کامل *" required>
+            <input class="input" id="email" name="email" type="email" placeholder="ایمیل *" required>
+            <input class="input" id="phone" name="phone" type="tel" placeholder="شماره تلفن">
+            <textarea class="textarea" id="message" name="message" placeholder="توضیح پروژه *" required></textarea>
+            <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap">
+              <button class="btn btn--primary" id="submit">ارسال درخواست</button>
+              <button class="btn" id="reset" type="button">پاک کردن</button>
+            </div>
+            <div id="status" style="margin-top:12px; color:var(--muted); display:none"></div>
+          </form>
+
+          <aside style="padding:16px; border:6px solid var(--paper); border-radius:4px; text-align:left;">
+            <strong style="display:block; margin-bottom:8px; color:var(--neon)">راه‌های ارتباطی</strong>
+            <div style="color:var(--muted); font-size:14px">
+              <div>واتس‌اپ: <a href="https://wa.me/989123456789" style="color:var(--paper)">+98 912 345 6789</a></div>
+              <div style="margin-top:6px">تلگرام: <a href="https://t.me/AMIXAMA" style="color:var(--paper)">@AMIXAMA</a></div>
+              <div style="margin-top:8px; color:var(--muted)">آدرس: تهران — جزئیات پس از تماس</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap" style="padding:24px 0; text-align:center; color:var(--muted)">
+        © <span id="year"></span> AMIXAMA — همه حقوق محفوظ
+      </div>
+    </footer>
+  </main>
+
+  <!-- مودال ساده برای نمونه‌کارها -->
+  <div id="modal" aria-hidden="true" style="position:fixed; left:0;top:0;right:0;bottom:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.8); z-index:1400;">
+    <div style="width:92%; max-width:880px; background:var(--bg); border:6px solid var(--paper); border-radius:4px; overflow:hidden;">
+      <div id="modalInner" style="padding:18px; color:var(--paper)"></div>
+      <div style="padding:12px; text-align:right"><button id="modalClose" class="btn">بستن</button></div>
+    </div>
+  </div>
+
+<script>
+  /* بوت ساده: نمایش سریع و سپس فعال‌سازی انیمیشن‌ها */
+  (function(){
+    // فعال‌سازی عنوان با اندکی تاخیر برای حس لود طبیعی
+    const heroTitle = document.getElementById('heroTitle');
+    function activateHero(){
+      if(!heroTitle) return;
+      // اگر کاربر prefers-reduced-motion فعال است، بدون انیمیشن بگذار
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduced){ heroTitle.classList.add('active'); return; }
+      setTimeout(()=> heroTitle.classList.add('active'), 220);
+      // افزدون نور نئون لایه پس‌زمینه (با تاخیر)
+      setTimeout(()=> {
+        const neon = document.querySelector('.neon-layer');
+        if(neon) neon.style.transform = 'translateX(0)', neon.style.opacity = '0.28';
+      }, 420);
+    }
+
+    // Ticker ساده: اگر طول محتوای span کم باشد، تکرارش کن
+    // (در CSS تعریف شده)
+
+    // Modal نمونه‌کار
+    const modal = document.getElementById('modal');
+    const modalInner = document.getElementById('modalInner');
+    const modalClose = document.getElementById('modalClose');
+    function openModal(src, title, desc){
+      modalInner.innerHTML = '<strong style="display:block; margin-bottom:8px;">'+(title||'')+'</strong><p style="color:var(--muted)">'+(desc||'')+'</p>' + (src?('<img src="'+src+'" style="width:100%;display:block;margin-top:12px">') : '');
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden','false');
+    }
+    function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); modalInner.innerHTML=''; }
+    if(modalClose) modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=> { if(e.target === modal) closeModal(); });
+
+    // اتصال کارت‌های نمونه‌کار
+    function bindPortfolio(){
+      document.querySelectorAll('.card-portfolio').forEach(card=>{
+        if(card._bound) return;
+        card.addEventListener('click', ()=>{
+          const src = card.dataset.src || card.querySelector('img')?.src || '';
+          const title = card.dataset.title || card.querySelector('h4')?.innerText || '';
+          const desc = card.dataset.desc || card.querySelector('p')?.innerText || '';
+          openModal(src, title, desc);
+        });
+        card._bound = true;
+      });
+    }
+
+    // fallback تصاویر: اگر عکس خطا داد، placeholder بساز
+    function createPlaceholder(card){
+      const img = card.querySelector('img');
+      if(img) img.remove();
+      if(card.querySelector('.img-placeholder')) return;
+      const ph = document.createElement('div');
+      ph.className = 'img-placeholder';
+      ph.style.padding = '24px';
+      ph.style.textAlign = 'center';
+      ph.innerHTML = '<strong style="display:block;margin-bottom:6px;color:var(--paper)">'+(card.dataset.title||'نمونه‌کار')+'</strong><small style="color:var(--muted)">'+(card.dataset.desc||'تصویر در دسترس نیست')+'</small>';
+      card.insertBefore(ph, card.querySelector('.meta'));
+    }
+    function ensurePortfolioImages(){
+      document.querySelectorAll('.card-portfolio').forEach(card=>{
+        const img = card.querySelector('img');
+        if(!img){ createPlaceholder(card); return; }
+        img.addEventListener('error', ()=> createPlaceholder(card));
+        if(img.complete && typeof img.naturalWidth !== 'undefined' && img.naturalWidth === 0) createPlaceholder(card);
+      });
+    }
+
+    // بارگذاری بیشتر (نمونه پویا)
+    const loadBtn = document.getElementById('loadMore');
+    if(loadBtn){
+      loadBtn.addEventListener('click', ()=>{
+        const grid = document.getElementById('portfolioGrid');
+        for(let i=0;i<2;i++){
+          const art = document.createElement('article');
+          art.className = 'card-portfolio'; art.tabIndex = 0;
+          art.dataset.title = 'نمونه اضافه‌شده'; art.dataset.desc = 'نمونه اضافه‌شده پویا';
+          art.innerHTML = '<div style="height:160px;background:linear-gradient(90deg, #111, #222);"></div><div class="meta"><h4>نمونه اضافه‌شده</h4><p style="color:var(--muted)">اضافه‌شده پویا</p></div>';
+          grid.appendChild(art);
+        }
+        bindPortfolio(); ensurePortfolioImages();
+        loadBtn.textContent = 'تمام شد'; loadBtn.disabled = true;
+      });
+    }
+
+    // فرم تماس (ماک)
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('status');
+    const submit = document.getElementById('submit');
+    const resetBtn = document.getElementById('reset');
+    if(submit){
+      submit.addEventListener('click', ()=>{
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        if(!name || !email || !message){
+          status.style.display='block'; status.style.color= 'var(--danger)'; status.textContent = 'پر کردن همه فیلدهای ستاره‌دار الزامی است.'; return;
+        }
+        status.style.display='block'; status.style.color = 'var(--muted)'; status.textContent = 'در حال ارسال...';
+        submit.disabled = true;
+        setTimeout(()=>{ status.style.color = 'var(--neon)'; status.textContent = 'درخواست ثبت شد. تشکر.'; submit.disabled=false; form.reset(); }, 900);
+      });
+    }
+    if(resetBtn) resetBtn.addEventListener('click', ()=> { if(form) form.reset(); if(status) status.style.display='none'; });
+
+    // دسترسی: outline برای کیبورد
+    (function(){
+      let usingKeyboard = false;
+      window.addEventListener('keydown', (e)=> { if(e.key === 'Tab') usingKeyboard = true; });
+      window.addEventListener('mousedown', ()=> usingKeyboard = false);
+      document.body.addEventListener('focusin', (e)=> { if(usingKeyboard) e.target.classList.add('focus-outline'); });
+      document.body.addEventListener('focusout', (e)=> { e.target.classList.remove('focus-outline'); });
+    })();
+
+    // init on load
+    window.addEventListener('load', ()=> {
+      activateHero();
+      bindPortfolio(); ensurePortfolioImages();
+      document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
+    });
+
+    // small fallback
+    setTimeout(()=> { if(!document.getElementById('year') || !document.getElementById('heroTitle')) { activateHero(); bindPortfolio(); ensurePortfolioImages(); } }, 1600);
+  })();
+</script>
 </body>
 </html>
