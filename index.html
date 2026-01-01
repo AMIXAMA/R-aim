@@ -3,820 +3,342 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>AMIXAMA — ضدسیستم</title>
-    <meta name="description" content="AMIXAMA — طراحی ضدسیستم. قواعد را می‌شکنیم تا سیستم‌های واقعی بسازیم.">
-    <meta name="theme-color" content="#4a1e8c">
+    <title>AMIXAMA — نسخه ارتقایافته ۲۰۲۵</title>
+    <meta name="description" content="AMIXAMA — معماری ضدسیستم. شورش علیه بهینه‌سازی‌های کلیشه‌ای.">
     
     <style>
-        /* سیستم ضد طراحی - مات، بنفش، سفید، بلوری */
+        /* استراتژی تایپوگرافی سیال (Fluid Typography) ۲۰۲۵ */
         :root {
-            --purple-dark: #2d0b5a;
+            --purple-dark: #1a0536;
             --purple-mid: #4a1e8c;
-            --purple-light: #7b3fe4;
             --purple-glow: #9d70ff;
-            --matte-white: rgba(255, 255, 255, 0.85);
-            --matte-black: rgba(10, 5, 20, 0.9);
-            --blur-intensity: 12px;
-            --distortion: 2px;
+            --neon-cyan: #00f2ff;
+            --neon-pink: #ff00ff;
+            --matte-black: #0a0514;
+            --matte-white: rgba(245, 245, 245, 0.9);
+            
+            /* استفاده از clamp برای مقیاس‌پذیری بدون مدیاکوئری */
+            --font-size-base: clamp(1rem, 0.5vw + 1rem, 1.2rem);
+            --font-size-hero: clamp(3rem, 12vw + 1rem, 9rem);
         }
 
-        /* ریست عمدا ناقص */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            scrollbar-width: none;
-        }
-        
-        /* اسکرول‌بار را پنهان می‌کنیم اما اسکرول کار می‌کند */
-        ::-webkit-scrollbar {
-            display: none;
+            cursor: crosshair;
         }
 
         body {
             font-family: 'Courier New', monospace;
             background: var(--matte-black);
             color: var(--matte-white);
+            line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
-            line-height: 1.3;
-            transform: rotate(0.3deg); /* اعوجاج عمدی */
+            font-size: var(--font-size-base);
+            /* اعوجاج بصری نرم برای کل بدنه */
+            animation: systemDistortion 60s infinite alternate ease-in-out;
         }
 
-        /* اعوجاج متناوب برای کل صفحه */
-        @keyframes bodyDistort {
-            0%, 100% { transform: rotate(0.3deg) skew(0.1deg); }
-            50% { transform: rotate(-0.2deg) skew(-0.1deg); }
+        @keyframes systemDistortion {
+            0% { transform: skew(0deg); }
+            50% { transform: skew(0.2deg, -0.1deg); }
+            100% { transform: skew(-0.2deg); }
         }
 
-        body {
-            animation: bodyDistort 20s infinite alternate ease-in-out;
-        }
-
-        /* کانتینرهای نامتعارف */
-        .container {
-            width: 93%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 15px;
-            position: relative;
-        }
-
-        /* هدر ضد طراحی */
+        /* بخش سمانتیک (Semantic Structure) */
         header {
             position: fixed;
-            top: 20px;
-            left: 20px; /* قرارگیری در سمت چپ برای سایت RTL */
-            z-index: 1000;
+            top: 0;
+            width: 100%;
+            padding: 20px;
+            z-index: 2000;
             mix-blend-mode: difference;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .logo-small {
-            font-size: 14px;
-            font-weight: bold;
+       .logo-text {
+            font-weight: 900;
+            letter-spacing: -2px;
             color: var(--purple-glow);
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-            letter-spacing: 3px;
-            opacity: 0.7;
+            text-transform: uppercase;
         }
 
-        /* ناوبری معکوس */
         nav {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            left: 20px;
+            bottom: 40px;
             z-index: 1000;
         }
 
-        .nav-list {
+       .nav-list {
             list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: flex-end;
+            writing-mode: vertical-lr;
         }
 
-        .nav-link {
-            color: var(--matte-white);
+       .nav-link {
             text-decoration: none;
-            font-size: 13px;
-            padding: 5px 10px;
-            background: rgba(74, 30, 140, 0.3);
-            backdrop-filter: blur(var(--blur-intensity));
-            border-radius: 2px;
-            transition: all 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .nav-link:hover {
-            background: rgba(123, 63, 228, 0.5);
-            border: 1px solid var(--purple-glow);
-            transform: translateX(-10px); /* حرکت برخلاف انتظار */
-        }
-
-        /* بخش اصلی با لوگوی بزرگ متحرک */
-        .hero {
-            min-height: 130vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 40px 20px;
-        }
-
-        /* لوگوی بزرگ متحرک */
-        .main-logo {
-            font-size: clamp(80px, 20vw, 200px);
-            font-weight: 900;
-            color: transparent;
-            position: relative;
-            z-index: 2;
-            text-transform: uppercase;
-            letter-spacing: -5px;
-            line-height: 0.8;
-            text-align: center;
-            mix-blend-mode: screen;
-        }
-
-        /* انیمیشن‌های پیچیده برای لوگو */
-        @keyframes logoFloat {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg) scale(1);
-                text-shadow: 
-                    0 0 20px var(--purple-glow),
-                    0 0 40px var(--purple-light),
-                    0 0 60px var(--purple-mid);
-            }
-            25% { 
-                transform: translateY(-20px) rotate(0.5deg) scale(1.02);
-                text-shadow: 
-                    0 0 30px var(--purple-glow),
-                    0 0 60px var(--purple-light),
-                    0 0 90px var(--purple-mid);
-            }
-            50% { 
-                transform: translateY(10px) rotate(-0.5deg) scale(0.98);
-                text-shadow: 
-                    0 0 25px var(--purple-glow),
-                    0 0 50px var(--purple-light),
-                    0 0 75px var(--purple-mid);
-            }
-            75% { 
-                transform: translateY(-10px) rotate(0.3deg) scale(1.01);
-            }
-        }
-
-        @keyframes logoDistort {
-            0%, 100% { 
-                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-            }
-            25% { 
-                clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
-            }
-            50% { 
-                clip-path: polygon(0% 5%, 100% 0%, 95% 100%, 5% 95%);
-            }
-            75% { 
-                clip-path: polygon(5% 5%, 95% 0%, 95% 95%, 5% 100%);
-            }
-        }
-
-        .main-logo {
-            animation: 
-                logoFloat 8s infinite ease-in-out,
-                logoDistort 12s infinite linear;
-        }
-
-        /* لایه‌های پس‌زمینه مات و بلوری */
-        .logo-bg-layer {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80vmax;
-            height: 80vmax;
-            background: radial-gradient(circle, 
-                var(--purple-light) 0%, 
-                transparent 70%);
-            opacity: 0.15;
-            filter: blur(40px);
-            z-index: 1;
-            animation: bgPulse 15s infinite alternate;
-        }
-
-        @keyframes bgPulse {
-            0% { 
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
-                opacity: 0.1;
-            }
-            100% { 
-                transform: translate(-50%, -50%) scale(1.3) rotate(180deg);
-                opacity: 0.25;
-            }
-        }
-
-        /* متن توضیحی با چیدمان غیرمعمول */
-        .hero-description {
-            position: absolute;
-            bottom: 20%;
-            left: 10%;
-            width: 300px;
-            font-size: 14px;
-            line-height: 1.6;
             color: var(--matte-white);
-            opacity: 0.8;
-            transform: rotate(-2deg);
-            padding: 20px;
-            background: rgba(45, 11, 90, 0.5);
-            backdrop-filter: blur(var(--blur-intensity));
-            border-left: 3px solid var(--purple-glow);
+            font-size: 14px;
+            display: block;
+            margin: 10px 0;
+            padding: 5px;
+            border: 1px solid transparent;
+            transition: all 0.2s steps(4);
         }
 
-        /* اسکرول افقی عمدی */
-        .horizontal-scroll {
-            width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
-            padding: 40px 20px;
-            margin: 40px 0;
-            background: rgba(74, 30, 140, 0.1);
-            backdrop-filter: blur(var(--blur-intensity));
-            border-top: 1px solid var(--purple-light);
-            border-bottom: 1px solid var(--purple-light);
+       .nav-link:hover {
+            background: var(--purple-mid);
+            border-color: var(--neon-cyan);
+            transform: scale(1.1) translateX(5px);
         }
 
-        .scroll-content {
-            display: inline-flex;
-            gap: 40px;
-            padding-right: 100px;
-        }
-
-        .scroll-item {
+        /* مهندسی گلیچ (Glitch Engineering) */
+       .glitch-container {
+            position: relative;
             display: inline-block;
-            width: 300px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 4px;
-            border: 1px solid rgba(123, 63, 228, 0.3);
-            white-space: normal;
-            vertical-align: top;
         }
 
-        /* کارت‌های نامتقارن */
-        .services {
-            padding: 80px 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+       .glitch-text {
+            font-size: var(--font-size-hero);
+            font-weight: 950;
+            text-align: center;
             position: relative;
+            color: white;
+            z-index: 1;
         }
 
-        .service-card {
-            background: rgba(45, 11, 90, 0.6);
-            backdrop-filter: blur(var(--blur-intensity));
-            padding: 30px;
-            border-radius: 4px;
-            border: 1px solid var(--purple-light);
-            transform: rotate(var(--rotation));
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* چرخش تصادفی کارت‌ها */
-        .service-card:nth-child(odd) {
-            --rotation: 0.5deg;
-        }
-        .service-card:nth-child(even) {
-            --rotation: -0.5deg;
-        }
-
-        .service-card:hover {
-            --rotation: 0deg;
-            transform: scale(1.05) rotate(0deg);
-            z-index: 10;
-            box-shadow: 
-                0 0 30px rgba(123, 63, 228, 0.3),
-                inset 0 0 30px rgba(157, 112, 255, 0.1);
-        }
-
-        /* افکت‌های خطای عمدی */
-        .glitch {
-            position: relative;
-        }
-
-        .glitch::before,
-        .glitch::after {
+       .glitch-text::before,.glitch-text::after {
             content: attr(data-text);
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: -1;
             opacity: 0.8;
         }
 
-        .glitch::before {
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-            color: #ff00ff;
-            z-index: -1;
+       .glitch-text::before {
+            color: var(--neon-cyan);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
         }
 
-        .glitch::after {
-            animation: glitch-anim 3s infinite linear alternate-reverse;
-            color: #00ffff;
-            z-index: -2;
+       .glitch-text::after {
+            color: var(--neon-pink);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
         }
 
-        @keyframes glitch-anim {
-            0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 2px); }
-            5% { clip-path: inset(92% 0 1% 0); transform: translate(1px, -2px); }
-            10% { clip-path: inset(43% 0 1% 0); transform: translate(-1px, 3px); }
-            15% { clip-path: inset(25% 0 58% 0); transform: translate(2px, -1px); }
-            20% { clip-path: inset(54% 0 7% 0); transform: translate(-2px, 2px); }
-            100% { clip-path: inset(58% 0 43% 0); transform: translate(0); }
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 30% 0); transform: translate(-5px, 2px); }
+            100% { clip-path: inset(10% 0 70% 0); transform: translate(5px, -2px); }
         }
 
-        /* فرم با طراحی مختل شده */
-        .contact-form {
-            padding: 60px 20px;
-            max-width: 800px;
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(40% 0 10% 0); transform: translate(5px, 2px); }
+            100% { clip-path: inset(60% 0 20% 0); transform: translate(-5px, -2px); }
+        }
+
+        /* بخش اصلی */
+        main {
+            padding: 100px 20px;
+            max-width: 1200px;
             margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 200px;
             position: relative;
         }
 
-        .form-group {
+       .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2px; /* شکاف‌های صنعتی */
+            background: var(--purple-mid);
+            border: 1px solid var(--purple-mid);
+        }
+
+       .service-card {
+            background: var(--matte-black);
+            padding: 40px;
+            transition: background 0.3s;
+        }
+
+       .service-card:hover {
+            background: #140825;
+        }
+
+        /* فرم با امنیت Honeypot */
+       .anti-form {
+            background: #110821;
+            padding: 60px;
+            border: 1px solid var(--purple-light);
+        }
+
+       .form-group {
             margin-bottom: 30px;
-            position: relative;
         }
 
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--purple-glow);
-            font-size: 14px;
-            transform: rotate(-0.5deg);
-        }
-
-        .form-input {
+       .form-input {
             width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--purple-light);
-            color: var(--matte-white);
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* اعوجاج هنگام فوکوس */
-        .form-input:focus {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--purple-mid);
+            color: white;
+            padding: 15px 0;
+            font-size: 1.2rem;
             outline: none;
-            border-color: var(--purple-glow);
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(10px) skew(-1deg);
-            box-shadow: 
-                10px 0 20px rgba(123, 63, 228, 0.3),
-                inset 0 0 20px rgba(157, 112, 255, 0.1);
+            transition: border-color 0.3s;
         }
 
-        /* دکمه‌های نامتعارف */
-        .anti-button {
-            padding: 15px 40px;
-            background: rgba(123, 63, 228, 0.3);
-            border: 1px solid var(--purple-light);
-            color: var(--matte-white);
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            transform: rotate(0.5deg);
+       .form-input:focus {
+            border-color: var(--neon-cyan);
         }
 
-        .anti-button:hover {
-            background: rgba(123, 63, 228, 0.6);
-            transform: rotate(-0.5deg) scale(1.05);
-            border-color: var(--purple-glow);
-            box-shadow: 
-                0 0 30px rgba(123, 63, 228, 0.4),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
-        }
-
-        /* عناصر شناور تصادفی */
-        .floating-element {
+        /* فیلد مخفی Honeypot برای مبارزه با ربات‌ها */
+       .ohnohoney {
+            opacity: 0;
             position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(123, 63, 228, 0.1);
-            border: 1px solid rgba(157, 112, 255, 0.3);
-            backdrop-filter: blur(5px);
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 0;
             z-index: -1;
         }
 
-        /* انیمیشن‌های شناور تصادفی */
-        .floating-element:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation: floatRandom 25s infinite linear;
+       .btn-submit {
+            background: var(--purple-glow);
+            color: var(--purple-dark);
+            border: none;
+            padding: 20px 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        .floating-element:nth-child(2) {
-            top: 60%;
-            right: 15%;
-            animation: floatRandom 30s infinite linear reverse;
+       .btn-submit:hover {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
         }
 
-        .floating-element:nth-child(3) {
-            bottom: 30%;
-            left: 20%;
-            animation: floatRandom 35s infinite linear;
-        }
-
-        @keyframes floatRandom {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(100px, 50px) rotate(90deg); }
-            50% { transform: translate(50px, 100px) rotate(180deg); }
-            75% { transform: translate(-50px, 50px) rotate(270deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-
-        /* پانویس معکوس */
+        /* پانویس */
         footer {
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid var(--purple-light);
-            margin-top: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-text {
-            color: var(--matte-white);
-            opacity: 0.7;
+            padding: 100px 20px;
+            border-top: 1px solid var(--purple-mid);
+            text-align: right;
+            opacity: 0.5;
             font-size: 12px;
-            transform: rotate(180deg);
-            writing-mode: vertical-rl;
-            margin: 0 auto;
-            height: 100px;
-        }
-
-        /* افکت لرزش عمدی */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
-            20%, 40%, 60%, 80% { transform: translateX(3px); }
-        }
-
-        .shake-on-hover:hover {
-            animation: shake 0.5s;
-        }
-
-        /* حالت موبایل - حتی آشفته‌تر */
-        @media (max-width: 768px) {
-            .main-logo {
-                font-size: clamp(60px, 15vw, 120px);
-                letter-spacing: -3px;
-            }
-            
-            .hero-description {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                width: 100%;
-                transform: rotate(1deg);
-                margin-top: 40px;
-            }
-            
-            .service-card {
-                transform: rotate(var(--rotation)) scale(0.95);
-            }
-            
-            .service-card:hover {
-                transform: scale(1) rotate(0deg);
-            }
-            
-            /* در موبایل هم‌پوشانی عمدی را بیشتر می‌کنیم */
-            .services {
-                gap: 10px;
-            }
-            
-            .form-input:focus {
-                transform: translateX(5px) skew(-2deg);
-            }
-            
-            /* منو در موبایل به هم می‌ریزد */
-            nav {
-                bottom: 20px;
-                right: 20px;
-            }
-            
-            .nav-list {
-                gap: 8px;
-            }
-            
-            .nav-link {
-                font-size: 11px;
-                padding: 3px 6px;
-            }
-        }
-
-        /* چاپ - حتی در چاپ هم ضد طراحی باشد */
-        @media print {
-            body {
-                transform: none;
-                background: white !important;
-                color: black !important;
-            }
-            
-            .main-logo {
-                color: black !important;
-                text-shadow: none !important;
-            }
-            
-            .service-card {
-                break-inside: avoid;
-                border: 2px solid black !important;
-                transform: none !important;
-            }
-            
-            /* در چاپ هم المان‌ها روی هم بیفتند */
-            .hero-description {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- عناصر شناور تصادفی -->
-    <div class="floating-element"></div>
-    <div class="floating-element"></div>
-    <div class="floating-element"></div>
 
-    <!-- هدر با موقعیت عکس -->
     <header>
-        <div class="logo-small shake-on-hover">AMX-SYS</div>
+        <div class="logo-text">AMIXAMA / SYS-OFF</div>
+        <div>v2.0.25</div>
     </header>
 
-    <!-- ناوبری در مکان غیرمنتظره -->
     <nav>
         <ul class="nav-list">
-            <li><a href="#home" class="nav-link glitch" data-text="خانه">خانه</a></li>
-            <li><a href="#services" class="nav-link glitch" data-text="سیستم‌ها">سیستم‌ها</a></li>
-            <li><a href="#work" class="nav-link glitch" data-text="تخریب">تخریب</a></li>
-            <li><a href="#contact" class="nav-link glitch" data-text="ارتباط معکوس">ارتباط معکوس</a></li>
+            <li><a href="#" class="nav-link">اصلی</a></li>
+            <li><a href="#services" class="nav-link">تخریب ساختار</a></li>
+            <li><a href="#contact" class="nav-link">نفوذ</a></li>
         </ul>
     </nav>
 
-    <!-- بخش اصلی با لوگوی بزرگ -->
-    <section id="home" class="hero">
-        <div class="logo-bg-layer"></div>
-        <h1 class="main-logo glitch" data-text="AMIXAMA">AMIXAMA</h1>
-        <div class="hero-description shake-on-hover">
-            <p>سیستم‌های دیجیتال را می‌سازیم. قواعد را می‌شکنیم. فرم‌های جدید خلق می‌کنیم. این یک ضدسیستم است.</p>
-            <p style="margin-top: 10px; font-size: 12px; opacity: 0.6;">(اسکرول کنید، اما نه به روشی که انتظار دارید)</p>
-        </div>
-    </section>
+    <main>
+        <section style="height: 80vh; display: flex; flex-direction: column; justify-content: center;">
+            <div class="glitch-container">
+                <h1 class="glitch-text" data-text="AMIXAMA">AMIXAMA</h1>
+            </div>
+            <p style="max-width: 500px; margin-top: 20px; border-right: 4px solid var(--neon-pink); padding-right: 20px;">
+                ما کدها را برای بهینه‌سازی نمی‌نویسیم؛ ما آن‌ها را برای بیان حقیقتِ متریال دیجیتال عریان می‌کنیم. 
+                اینجا پایانی بر طراحی‌های "تمیز" و "اتو کشیده" است.
+            </p>
+        </section>
 
-    <!-- اسکرول افقی عمدی -->
-    <section class="horizontal-scroll" id="work">
-        <div class="scroll-content">
-            <div class="scroll-item">
-                <h3 class="glitch" data-text="سیستم‌های معیوب">سیستم‌های معیوب</h3>
-                <p>سیستم‌هایی می‌سازیم که عمداً ناقص هستند. این نقص‌ها قابلیت انعطاف ایجاد می‌کنند.</p>
+        <section id="services">
+            <h2 style="margin-bottom: 40px; color: var(--neon-cyan);">[ عملیات سیستم ]</h2>
+            <div class="service-grid">
+                <article class="service-card">
+                    <h3>۰۱. آنتی‌لوژیک</h3>
+                    <p>مهندسی معکوس فرآیندهای ذهنی برای خلق رابط‌های کاربری چالش‌برانگیز.</p>
+                </article>
+                <article class="service-card">
+       5             <h3>۰۲. کدهای ناپایدار</h3>
+                    <p>توسعه الگوریتم‌هایی که با گذشت زمان تغییر رفتار می‌دهند.</p>
+                </article>
+                <article class="service-card">
+                    <h3>۰۳. نویز بصری</h3>
+                    <p>جایگزینی آیکون‌های استاندارد با متریال‌های بصری خام و پردازش‌نشده.</p>
+                </article>
             </div>
-            <div class="scroll-item">
-                <h3 class="glitch" data-text="کدهای ناخوانا">کدهای ناخوانا</h3>
-                <p>کدی که فقط ماشین می‌فهمد. بهره‌وری بی‌نهایت. خوانایی صفر.</p>
-            </div>
-            <div class="scroll-item">
-                <h3 class="glitch" data-text="رابط‌های مخرب">رابط‌های مخرب</h3>
-                <p>رابط کاربری که کاربر را به چالش می‌کشد. آموزش می‌دهد. تغییر می‌دهد.</p>
-            </div>
-            <div class="scroll-item">
-                <h3 class="glitch" data-text="الگوریتم‌های تصادفی">الگوریتم‌های تصادفی</h3>
-                <p>نظم در بی‌نظمی. سیستم‌هایی که هرگز تکرار نمی‌شوند.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- خدمات با کارت‌های کج -->
-    <section id="services" class="services container">
-        <div class="service-card">
-            <h3 class="glitch" data-text="طراحی معکوس">طراحی معکوس</h3>
-            <p>از پایان شروع می‌کنیم. از راه‌حل به مسئله می‌رسیم. منطق وارونه.</p>
-        </div>
-        <div class="service-card">
-            <h3 class="glitch" data-text="توسده نامتقارن">توسعه نامتقارن</h3>
-            <p>کدهای نامتوازن که بهتر کار می‌کنند. معماری‌های عمداً ناکامل.</p>
-        </div>
-        <div class="service-card">
-            <h3 class="glitch" data-text="امنیت شفاف">امنیت شفاف</h3>
-            <p>حفره‌های امنیتی را نمایش می‌دهیم. آسیب‌پذیری را به قابلیت تبدیل می‌کنیم.</p>
-        </div>
-        <div class="service-card">
-            <h3 class="glitch" data-text="هوش غیرخطی">هوش غیرخطی</h3>
-            <p>الگوریتم‌هایی که مسیر مستقیم را انتخاب نمی‌کنند. راه‌های جدید کشف می‌کنند.</p>
-        </div>
-    </section>
+        <section id="contact">
+            <div class="anti-form">
+                <h2 style="margin-bottom: 40px;">ارتباط با هسته</h2>
+                <form id="secure-form">
+                    <div class="form-group">
+                        <label>شناسه فرستنده</label>
+                        <input type="text" name="user_id" class="form-input" placeholder="اسم مستعار...">
+                    </div>
+                    
+                    <div class="ohnohoney">
+                        <label>اگر انسان هستید این فیلد را پر نکنید</label>
+                        <input type="text" name="secondary_email" tabindex="-1" autocomplete="off">
+                    </div>
 
-    <!-- فرم تماس آشفته -->
-    <section class="contact-form container" id="contact">
-        <h2 class="glitch" data-text="ارتباط معکوس" style="margin-bottom: 40px; text-align: center; font-size: 24px;">ارتباط معکوس</h2>
-        <form id="anti-form">
-            <div class="form-group">
-                <label class="form-label glitch" data-text="نام شما">نام شما</label>
-                <input type="text" class="form-input shake-on-hover" placeholder="(ترجیحاً نادرست وارد کنید)">
+                    <div class="form-group">
+                        <label>فرکانس پیام</label>
+                        <textarea name="message" class="form-input" rows="4" placeholder="پیام نویزدار..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">ارسال نویز</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label class="form-label glitch" data-text="ایمیل معکوس">ایمیل معکوس</label>
-                <input type="email" class="form-input shake-on-hover" placeholder="com.example@">
-            </div>
-            <div class="form-group">
-                <label class="form-label glitch" data-text="پیام وارونه">پیام وارونه</label>
-                <textarea class="form-input shake-on-hover" rows="5" placeholder="پیام را از پایان بنویسید..."></textarea>
-            </div>
-            <div style="text-align: center; margin-top: 40px;">
-                <button type="button" class="anti-button glitch shake-on-hover" data-text="ارسال ناقص">ارسال ناقص</button>
-            </div>
-        </form>
-    </section>
+        </section>
+    </main>
 
-    <!-- فوتر وارونه -->
     <footer>
-        <div class="footer-text">
-            AMIXAMA ضدسیستم ۲۰۲۴ — تمام حقوق محفوظ نیست
-        </div>
+        <p>© ۲۰۲۵ - تمام حقوق برای هیچ‌کس محفوظ نیست. / AMIXAMA_LABS</p>
     </footer>
 
     <script>
-        // اسکریپت‌های ضد طراحی
-        
-        // لرزش تصادفی المان‌ها
-        function randomShake() {
-            const elements = document.querySelectorAll('.shake-on-hover');
-            elements.forEach(el => {
-                setInterval(() => {
-                    if (Math.random() > 0.7) {
-                        el.style.transform = `translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px)`;
-                        setTimeout(() => {
-                            el.style.transform = '';
-                        }, 200);
-                    }
-                }, 3000);
-            });
-        }
-        
-        // اعوجاج تصادفی متن‌ها
-        function textDistort() {
-            const texts = document.querySelectorAll('p, h1, h2, h3');
-            texts.forEach(text => {
-                setInterval(() => {
-                    if (Math.random() > 0.9) {
-                        const letters = 'ا ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ه ی';
-                        const randomLetter = letters.split(' ')[Math.floor(Math.random() * letters.split(' ').length)];
-                        const originalText = text.textContent;
-                        const position = Math.floor(Math.random() * originalText.length);
-                        const newText = originalText.substring(0, position) + randomLetter + originalText.substring(position + 1);
-                        text.textContent = newText;
-                        
-                        setTimeout(() => {
-                            text.textContent = originalText;
-                        }, 100);
-                    }
-                }, 2000);
-            });
-        }
-        
-        // اسکرول غیرخطی
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            const scrollDelta = currentScroll - lastScroll;
+        // میکرواینترکشن‌های پیشرفته (Micro-interactions)
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.createElement('div');
+            glow.style.position = 'fixed';
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+            glow.style.width = '2px';
+            glow.style.height = '2px';
+            glow.style.background = Math.random() > 0.5? '#00f2ff' : '#ff00ff';
+            glow.style.pointerEvents = 'none';
+            glow.style.zIndex = '9999';
+            document.body.appendChild(glow);
+
+            glow.animate([
+                { opacity: 1, transform: 'scale(1)' },
+                { opacity: 0, transform: 'scale(20)' }
+            ], { duration: 1000, fill: 'forwards' });
+
+            setTimeout(() => glow.remove(), 1000);
+        });
+
+        // منطق فرم و بررسی Honeypot
+        document.getElementById('secure-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const honey = this.querySelector('input[name="secondary_email"]').value;
             
-            // گاهی اسکرول را معکوس می‌کنیم
-            if (Math.random() > 0.95 && scrollDelta !== 0) {
-                window.scrollBy(0, -scrollDelta * 0.5);
+            if (honey!== "") {
+                console.log("ربات شناسایی شد!");
+                return;
             }
             
-            // اعوجاج بصری بر اساس اسکرول
-            document.body.style.transform = `rotate(${0.3 + Math.sin(currentScroll * 0.01) * 0.2}deg)`;
-            
-            lastScroll = currentScroll;
-        });
-        
-        // کلیک‌های تصادفی
-        document.addEventListener('click', (e) => {
-            if (Math.random() > 0.8) {
-                const ripple = document.createElement('div');
-                ripple.style.position = 'fixed';
-                ripple.style.left = e.clientX + 'px';
-                ripple.style.top = e.clientY + 'px';
-                ripple.style.width = '0';
-                ripple.style.height = '0';
-                ripple.style.borderRadius = '50%';
-                ripple.style.background = 'radial-gradient(circle, rgba(123, 63, 228, 0.3), transparent)';
-                ripple.style.zIndex = '9999';
-                ripple.style.pointerEvents = 'none';
-                document.body.appendChild(ripple);
-                
-                const size = Math.random() * 100 + 50;
-                ripple.animate([
-                    { width: '0', height: '0', opacity: 1 },
-                    { width: size + 'px', height: size + 'px', opacity: 0 }
-                ], {
-                    duration: 800,
-                    easing: 'cubic-bezier(0.2, 0.8, 0.4, 1)'
-                });
-                
-                setTimeout(() => ripple.remove(), 800);
-            }
-        });
-        
-        // فرم معکوس
-        document.querySelector('.anti-button').addEventListener('click', () => {
-            const inputs = document.querySelectorAll('.form-input');
-            let message = 'فرم معکوس ارسال شد:\n\n';
-            
-            inputs.forEach(input => {
-                const value = input.value;
-                const reversed = value.split('').reverse().join('');
-                message += `${input.placeholder}: ${reversed}\n`;
-                
-                // پاک کردن با انیمیشن عجیب
-                input.animate([
-                    { opacity: 1, transform: 'translateX(0)' },
-                    { opacity: 0, transform: 'translateX(50px)' }
-                ], {
-                    duration: 500,
-                    fill: 'forwards'
-                });
-                
-                setTimeout(() => {
-                    input.value = '';
-                    input.style.opacity = '1';
-                    input.style.transform = '';
-                }, 600);
-            });
-            
-            // نمایش پیام در کنسول (به جای alert معمولی)
-            console.log('%c' + message, 'color: #9d70ff; font-size: 14px; font-weight: bold;');
-            
-            // ایجاد یک المان برای نمایش پیام
-            const messageEl = document.createElement('div');
-            messageEl.textContent = 'فرم در جهت معکوس پردازش شد';
-            messageEl.style.position = 'fixed';
-            messageEl.style.top = '50%';
-            messageEl.style.left = '50%';
-            messageEl.style.transform = 'translate(-50%, -50%) rotate(180deg)';
-            messageEl.style.background = 'rgba(45, 11, 90, 0.9)';
-            messageEl.style.color = '#9d70ff';
-            messageEl.style.padding = '20px';
-            messageEl.style.border = '1px solid #7b3fe4';
-            messageEl.style.zIndex = '10000';
-            messageEl.style.backdropFilter = 'blur(10px)';
-            document.body.appendChild(messageEl);
-            
-            setTimeout(() => {
-                messageEl.animate([
-                    { opacity: 1, transform: 'translate(-50%, -50%) rotate(180deg)' },
-                    { opacity: 0, transform: 'translate(-50%, -50%) rotate(360deg) scale(0.5)' }
-                ], {
-                    duration: 1000,
-                    fill: 'forwards'
-                });
-                setTimeout(() => messageEl.remove(), 1100);
-            }, 2000);
-        });
-        
-        // راه‌اندازی زمانی که DOM لود شد
-        document.addEventListener('DOMContentLoaded', () => {
-            randomShake();
-            textDistort();
-            
-            // شروع با کمی تأخیر برای اثر غافلگیری
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-            
-            // اعوجاج متناوب صفحه
-            setInterval(() => {
-                const rotation = Math.random() * 0.6 - 0.3;
-                const skew = Math.random() * 0.4 - 0.2;
-                document.body.style.transform = `rotate(${rotation}deg) skew(${skew}deg)`;
-            }, 10000);
+            this.innerHTML = "<h2 style='color:var(--neon-cyan)'>نویز با موفقیت در شبکه پخش شد.</h2>";
         });
     </script>
 </body>
