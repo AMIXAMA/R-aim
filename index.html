@@ -3,418 +3,644 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amixama | مرجع طراحی وبسایت‌های هوشمند و تکاملی</title>
+    <title>AMIXAMA | سیستم طراحی وبسایت‌های تکاملی</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-dark: #0d1b2a;
-            --secondary-dark: #1b263b;
-            --accent-blue: #415a77;
-            --accent-purple: #3d348b;
-            --cyber-teal: #00d4aa;
-            --light-gray: #e0e1dd;
-            --pure-white: #ffffff;
-            --grid-color: rgba(224, 225, 221, 0.1);
-            --warning-gold: #ffd700;
+            /* پالت رنگی Techwear */
+            --base-0: #0a0a0a;        /* مشکی مطلق - پایه */
+            --base-10: #1a1a1a;       /* خاکستری بسیار تیره */
+            --base-20: #2a2a2a;       /* خاکستری تیره */
+            --base-30: #3a3a3a;       /* خاکستری متوسط */
+            --base-40: #4a4a4a;       /* خاکستری روشن */
+            
+            /* رنگ تاکید - نارنجی هشدار */
+            --accent: #ff5e1a;
+            --accent-dark: #cc4b15;
+            
+            /* رنگ‌های سیستم */
+            --system-green: #00cc88;
+            --system-red: #ff4444;
+            --system-blue: #0099ff;
+            
+            /* تایپوگرافی */
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* هندسه */
+            --grid-unit: 8px;
+            --border-radius: 4px;
+            --border-radius-lg: 8px;
+            
+            /* انیمیشن */
+            --transition-fast: 0.15s;
+            --transition-normal: 0.3s;
         }
 
+        /* Reset & Base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--primary-dark);
-            color: var(--light-gray);
-            overflow-x: hidden;
-            position: relative;
+            font-family: var(--font-sans);
+            background-color: var(--base-0);
+            color: #f0f0f0;
             line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 400;
         }
 
-        /* شبکه زمینه */
-        .grid-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -2;
-            opacity: 0.3;
+        /* Utility Classes */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 calc(var(--grid-unit) * 3);
+        }
+
+        .section {
+            padding: calc(var(--grid-unit) * 10) 0;
+        }
+
+        .grid {
+            display: grid;
+            gap: calc(var(--grid-unit) * 4);
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-cols-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* هندسه پایه - Geometric Design */
+        .geometric-border {
+            border: 1px solid var(--base-30);
+            border-radius: var(--border-radius);
+        }
+
+        .geometric-card {
+            background: var(--base-10);
+            border: 1px solid var(--base-30);
+            border-radius: var(--border-radius);
+            padding: calc(var(--grid-unit) * 3);
+            transition: all var(--transition-fast);
+        }
+
+        .geometric-card:hover {
+            border-color: var(--base-40);
+            transform: translateY(-2px);
+        }
+
+        /* گرید سیستم */
+        .system-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: calc(var(--grid-unit) * 2);
+            margin-bottom: calc(var(--grid-unit) * 4);
+        }
+
+        .col-1 { grid-column: span 1; }
+        .col-2 { grid-column: span 2; }
+        .col-3 { grid-column: span 3; }
+        .col-4 { grid-column: span 4; }
+        .col-5 { grid-column: span 5; }
+        .col-6 { grid-column: span 6; }
+        .col-7 { grid-column: span 7; }
+        .col-8 { grid-column: span 8; }
+        .col-9 { grid-column: span 9; }
+        .col-10 { grid-column: span 10; }
+        .col-11 { grid-column: span 11; }
+        .col-12 { grid-column: span 12; }
+
+        /* تایپوگرافی Techwear */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: calc(var(--grid-unit) * 2);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #f0f0f0, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #f0f0f0;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 0.9em;
+            letter-spacing: -0.5px;
+        }
+
+        .label {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: var(--base-20);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--base-30);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* هدر و نویگیشن */
         header {
-            background-color: rgba(13, 27, 42, 0.95);
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--accent-purple);
-            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--base-30);
+            padding: calc(var(--grid-unit) * 2) 0;
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: calc(var(--grid-unit) * 2);
         }
 
-        .logo-icon {
+        .logo-geometric {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--cyber-teal));
-            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            background: var(--base-20);
+            border: 1px solid var(--base-40);
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: white;
+        }
+
+        .logo-geometric::before,
+        .logo-geometric::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .logo-geometric::before {
+            transform: rotate(45deg);
+        }
+
+        .logo-geometric::after {
+            transform: rotate(-45deg);
         }
 
         .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(to right, var(--cyber-teal), var(--accent-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0f0f0;
+        }
+
+        .logo-text span {
+            color: var(--accent);
         }
 
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: calc(var(--grid-unit) * 4);
             list-style: none;
         }
 
-        .nav-menu a {
-            color: var(--light-gray);
+        .nav-link {
+            color: #b0b0b0;
             text-decoration: none;
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            padding: calc(var(--grid-unit) * 1) calc(var(--grid-unit) * 2);
+            border-radius: var(--border-radius);
+            transition: all var(--transition-fast);
             position: relative;
         }
 
-        .nav-menu a:hover {
-            color: var(--cyber-teal);
-            background: rgba(0, 212, 170, 0.1);
+        .nav-link:hover {
+            color: #f0f0f0;
+            background: var(--base-20);
         }
 
-        .nav-menu a.active {
-            color: var(--cyber-teal);
-            border-bottom: 2px solid var(--cyber-teal);
+        .nav-link.active {
+            color: var(--accent);
+            background: var(--base-20);
         }
 
-        .nav-menu a::after {
-            content: '';
+        .nav-link.active::before {
+            content: '>';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--cyber-teal);
-            transition: width 0.3s ease;
+            left: -12px;
+            color: var(--accent);
+            font-family: var(--font-mono);
         }
 
-        .nav-menu a:hover::after {
-            width: 100%;
+        .nav-actions {
+            display: flex;
+            gap: calc(var(--grid-unit) * 2);
         }
 
-        .user-menu {
+        .btn {
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: calc(var(--grid-unit) * 1.5) calc(var(--grid-unit) * 3);
+            border: 1px solid var(--base-40);
+            background: var(--base-20);
+            color: #f0f0f0;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: calc(var(--grid-unit) * 1);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            background: var(--base-30);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--base-0);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+        }
+
+        /* بخش Hero با ایزومتریک */
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
         }
 
-        .user-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(61, 52, 139, 0.3);
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--base-10), transparent);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            margin-bottom: calc(var(--grid-unit) * 3);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin-bottom: calc(var(--grid-unit) * 6);
+            line-height: 1.8;
+        }
+
+        /* طراحی ایزومتریک */
+        .isometric-container {
+            perspective: 1000px;
+            position: absolute;
+            left: 5%;
+            top: 20%;
+            width: 50%;
+            height: 60%;
+            z-index: 1;
+        }
+
+        .isometric-cube {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            transform-style: preserve-3d;
+            transform: rotateX(60deg) rotateZ(45deg);
+            transition: transform var(--transition-normal);
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--base-40);
+            background: rgba(255, 94, 26, 0.05);
+        }
+
+        .cube-face.front { transform: translateZ(75px); }
+        .cube-face.back { transform: translateZ(-75px) rotateY(180deg); }
+        .cube-face.right { transform: rotateY(90deg) translateZ(75px); }
+        .cube-face.left { transform: rotateY(-90deg) translateZ(75px); }
+        .cube-face.top { transform: rotateX(90deg) translateZ(75px); }
+        .cube-face.bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+        /* سیستم معرفی */
+        .system-intro {
+            background: var(--base-10);
+            border-top: 1px solid var(--base-30);
+            border-bottom: 1px solid var(--base-30);
+        }
+
+        .system-diagram {
+            position: relative;
+            height: 400px;
+            background: var(--base-20);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--base-30);
+            overflow: hidden;
+        }
+
+        .diagram-node {
+            position: absolute;
+            width: 120px;
+            height: 60px;
+            background: var(--base-30);
+            border: 2px solid var(--accent);
+            border-radius: var(--border-radius);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            border: 1px solid var(--accent-purple);
-            transition: all 0.3s ease;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #f0f0f0;
         }
 
-        .user-icon:hover {
-            background: rgba(61, 52, 139, 0.5);
-            transform: scale(1.05);
+        .diagram-connection {
+            position: absolute;
+            height: 2px;
+            background: var(--accent);
+            transform-origin: left center;
         }
 
-        /* بخش اصلی */
-        main {
-            margin-top: 80px;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 2rem;
+        /* ماژول‌ها */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: calc(var(--grid-unit) * 3);
         }
 
-        section {
-            margin-bottom: 4rem;
-            padding: 2rem;
-            background: rgba(27, 38, 59, 0.5);
-            border-radius: 12px;
-            border: 1px solid rgba(65, 90, 119, 0.3);
+        .module-card {
+            background: var(--base-10);
+            border: 1px solid var(--base-30);
+            border-radius: var(--border-radius);
+            padding: calc(var(--grid-unit) * 4);
             position: relative;
             overflow: hidden;
         }
 
-        section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, var(--cyber-teal), var(--accent-purple));
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--cyber-teal), var(--accent-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--cyber-teal);
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--light-gray);
-        }
-
-        .mission-statement {
-            background: rgba(61, 52, 139, 0.2);
-            padding: 2rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--cyber-teal);
-            margin: 2rem 0;
-        }
-
-        .mission-statement p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: var(--light-gray);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .service-card {
-            background: rgba(27, 38, 59, 0.7);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid rgba(65, 90, 119, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--cyber-teal);
-            box-shadow: 0 10px 20px rgba(0, 212, 170, 0.2);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 212, 170, 0.1);
-            border-radius: 10px;
+        .module-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--base-20);
+            border: 1px solid var(--base-40);
+            border-radius: var(--border-radius);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1rem;
-            color: var(--cyber-teal);
-            font-size: 1.5rem;
+            margin-bottom: calc(var(--grid-unit) * 3);
+            color: var(--accent);
         }
 
-        .roadmap-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .roadmap-container::before {
-            content: '';
+        .module-status {
             position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--cyber-teal), var(--accent-purple));
-        }
-
-        .roadmap-step {
-            background: rgba(27, 38, 59, 0.7);
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--cyber-teal);
-            position: relative;
-        }
-
-        .roadmap-step::before {
-            content: '';
-            position: absolute;
-            left: -26px;
-            top: 24px;
-            width: 12px;
-            height: 12px;
-            background: var(--cyber-teal);
+            top: calc(var(--grid-unit) * 2);
+            left: calc(var(--grid-unit) * 2);
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            border: 3px solid var(--primary-dark);
+            background: var(--system-green);
         }
 
-        .step-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: var(--accent-purple);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            margin-right: 10px;
-            font-weight: bold;
+        .module-status.offline { background: var(--system-red); }
+        .module-status.loading { background: var(--accent); }
+
+        /* دیتا ویژوال Techwear */
+        .data-panel {
+            background: var(--base-10);
+            border: 1px solid var(--base-30);
+            border-radius: var(--border-radius);
+            padding: calc(var(--grid-unit) * 3);
+            font-family: var(--font-mono);
         }
 
-        /* بخش پرداخت و اعتماد */
-        .payment-notice {
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid var(--warning-gold);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 2rem 0;
+        .data-row {
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            justify-content: space-between;
+            padding: calc(var(--grid-unit) * 1.5) 0;
+            border-bottom: 1px solid var(--base-30);
         }
 
-        .payment-icon {
-            color: var(--warning-gold);
-            font-size: 2rem;
+        .data-row:last-child {
+            border-bottom: none;
         }
 
-        .trust-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
+        .data-key {
+            color: #b0b0b0;
         }
 
-        .badge {
-            background: rgba(0, 212, 170, 0.1);
-            border: 1px solid var(--cyber-teal);
-            border-radius: 8px;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex: 1;
-            min-width: 200px;
+        .data-value {
+            color: #f0f0f0;
+            font-weight: 500;
         }
 
-        .badge i {
-            color: var(--cyber-teal);
-            font-size: 1.5rem;
+        .data-value.active {
+            color: var(--system-green);
         }
 
-        /* دکمه واتساپ */
-        .whatsapp-contact {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 1000;
-        }
-
-        .whatsapp-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #25D366;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        .data-value.warning {
+            color: var(--accent);
         }
 
         /* فوتر */
         footer {
-            background-color: var(--secondary-dark);
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid var(--accent-purple);
+            background: var(--base-10);
+            border-top: 1px solid var(--base-30);
+            padding: calc(var(--grid-unit) * 8) 0;
+            margin-top: calc(var(--grid-unit) * 10);
         }
 
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
+        .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: calc(var(--grid-unit) * 6);
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            margin-bottom: calc(var(--grid-unit) * 3);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: calc(var(--grid-unit) * 1.5);
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color var(--transition-fast);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(224, 225, 221, 0.2);
-            color: rgba(224, 225, 221, 0.7);
+            padding-top: calc(var(--grid-unit) * 6);
+            margin-top: calc(var(--grid-unit) * 6);
+            border-top: 1px solid var(--base-30);
+            color: #888;
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
         }
 
-        /* انیمیشن‌ها */
+        /* ریسپانسیو */
+        @media (max-width: 1200px) {
+            .isometric-container {
+                display: none;
+            }
+            
+            .hero-bg {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .grid-cols-2,
+            .grid-cols-3,
+            .grid-cols-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .system-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            
+            .col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
+            .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+                grid-column: span 6;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 calc(var(--grid-unit) * 2);
+            }
+            
+            .section {
+                padding: calc(var(--grid-unit) * 6) 0;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: calc(var(--grid-unit) * 1) calc(var(--grid-unit) * 2);
+                font-size: 0.9rem;
+            }
+        }
+
+        /* انیمیشن‌های سریع Techwear */
         @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         @keyframes slideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { 
+                transform: translateY(20px); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateY(0); 
+                opacity: 1; 
+            }
         }
 
         .pulse {
@@ -422,336 +648,718 @@
         }
 
         .slide-in {
-            animation: slideIn 0.5s ease forwards;
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        /* ریسپانسیو */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-            
-            .logo-text {
-                font-size: 1.5rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            h2 {
-                font-size: 1.7rem;
-            }
-            
-            section {
-                padding: 1.5rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
+        /* اسکرول بار سبک Techwear */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--base-10);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--base-40);
+            border-radius: var(--border-radius);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--base-30);
         }
     </style>
 </head>
 <body>
-    <!-- شبکه زمینه -->
-    <div class="grid-background"></div>
-
-    <!-- هدر و نویگیشن -->
+    <!-- هدر -->
     <header>
-        <div class="nav-container">
+        <div class="container nav-container">
             <div class="logo">
-                <div class="logo-icon">A</div>
-                <div class="logo-text">AMIXAMA</div>
+                <div class="logo-geometric"></div>
+                <div class="logo-text">AMI<span>XAMA</span></div>
             </div>
             
             <ul class="nav-menu">
-                <li><a href="#about" class="active">درباره ما</a></li>
-                <li><a href="#services">خدمات</a></li>
-                <li><a href="#roadmap">نقشه راه</a></li>
-                <li><a href="#contact">تماس با ما</a></li>
+                <li><a href="#home" class="nav-link active">خانه</a></li>
+                <li><a href="#system" class="nav-link">سیستم</a></li>
+                <li><a href="#modules" class="nav-link">ماژول‌ها</a></li>
+                <li><a href="#dashboard" class="nav-link">داشبورد</a></li>
             </ul>
             
-            <div class="user-menu">
-                <div class="user-icon">
-                    <i class="fas fa-user"></i>
-                </div>
-                <span>پنل کاربری</span>
+            <div class="nav-actions">
+                <a href="#" class="btn">ورود</a>
+                <a href="#" class="btn btn-primary">شروع پروژه</a>
             </div>
         </div>
     </header>
 
-    <!-- محتوای اصلی -->
+    <!-- صفحه اصلی -->
     <main>
-        <!-- بخش درباره AMIXAMA -->
-        <section id="about" class="slide-in">
-            <h1>درباره AMIXAMA</h1>
-            <div class="mission-statement">
-                <p>
-                    <strong>AMIXAMA</strong> یک مرجع تخصصی برای ساخت هرگونه وبسایت فروش‌محور یا صنعت‌محور 
-                    در قالب و ساختار ارتقا یافته با سبک‌های غیرتکراری است که از مبنا با هوش مصنوعی 
-                    به تکامل می‌رسند.
-                </p>
-                <p style="margin-top: 1rem;">
-                    ما فقط وبسایت نمی‌سازیم، بلکه <strong>اکوسیستم‌های دیجیتال هوشمند</strong> خلق می‌کنیم 
-                    که با گذشت زمان و بر اساس رفتار کاربران، به صورت خودکار بهبود می‌یابند و تبدیل‌های بیشتری ایجاد می‌کنند.
-                </p>
+        <!-- بخش Hero -->
+        <section id="home" class="hero section">
+            <div class="hero-bg"></div>
+            <div class="isometric-container">
+                <div class="isometric-cube" id="cube1">
+                    <div class="cube-face front"></div>
+                    <div class="cube-face back"></div>
+                    <div class="cube-face right"></div>
+                    <div class="cube-face left"></div>
+                    <div class="cube-face top"></div>
+                    <div class="cube-face bottom"></div>
+                </div>
             </div>
             
-            <div class="payment-notice pulse">
-                <div class="payment-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <div>
-                    <h3 style="color: var(--warning-gold); margin-bottom: 0.5rem;">نکته مهم قبل از شروع پروژه</h3>
-                    <p>برای شروع هر پروژه، لازم است <strong>یک‌سوم (۱/۳) مبلغ کل پروژه</strong> به عنوان پیش‌پرداخت انجام شود. این مبلغ جهت آغاز فرآیند طراحی و توسعه هوشمند وبسایت شما ضروری است.</p>
+            <div class="container">
+                <div class="hero-content">
+                    <span class="label">نسخه ۲.۰</span>
+                    <h1>سیستم طراحی سه‌لایه</h1>
+                    <p class="hero-description">
+                        AMIXAMA یک اکوسیستم هوشمند برای ساخت وبسایت‌های تکاملی است که بر پایه 
+                        <span class="mono">Geometric Design</span>، 
+                        <span class="mono">Isometric Visualization</span> و 
+                        <span class="mono">Techwear Aesthetic</span>
+                        عمل می‌کند. هر پروژه از ابتدا با AI طراحی شده و در طول زمان بهینه می‌شود.
+                    </p>
+                    
+                    <div class="system-grid">
+                        <div class="col-4">
+                            <div class="geometric-card">
+                                <div class="module-icon">
+                                    <i class="fas fa-cube"></i>
+                                </div>
+                                <h3>اسکلت هندسی</h3>
+                                <p>پایه گریدبندی دقیق، اشکال ساده، خطوط مستقیم</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-4">
+                            <div class="geometric-card">
+                                <div class="module-icon">
+                                    <i class="fas fa-cubes"></i>
+                                </div>
+                                <h3>تصویرسازی ایزومتریک</h3>
+                                <p>نمایش مفهومی سیستم و جریان داده</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-4">
+                            <div class="geometric-card">
+                                <div class="module-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <h3>حس تکنیکی</h3>
+                                <p>رنگ محدود، تایپوگرافی فنی، ماژولار</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- بخش خدمات AMIXAMA -->
-        <section id="services" class="slide-in">
-            <h2>خدمات AMIXAMA</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>طراحی هوشمند مبتنی بر AI</h3>
-                    <p>طراحی وبسایت‌هایی که با هوش مصنوعی بهینه می‌شوند و بر اساس رفتار کاربران تکامل می‌یابند.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <h3>وبسایت‌های فروش‌محور</h3>
-                    <p>ساخت فروشگاه‌های آنلاین با معماری تبدیل بالا و سیستم‌های پیشنهاد هوشمند.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-industry"></i>
-                    </div>
-                    <h3>وبسایت‌های صنعت‌محور</h3>
-                    <p>طراحی پلتفرم‌های تخصصی برای صنایع مختلف با نمایش حرفه‌ای محصولات و خدمات.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>بهینه‌سازی مستمر</h3>
-                    <p>آنالیز مداوم و بهبود خودکار وبسایت بر اساس داده‌های رفتاری کاربران.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- بخش نقشه راه -->
-        <section id="roadmap" class="slide-in">
-            <h2>نقشه راه AMIXAMA</h2>
-            <div class="roadmap-container">
-                <div class="roadmap-step">
-                    <span class="step-number">۱</span>
-                    <h3>تحلیل هوشمند صنعت</h3>
-                    <p>بررسی دقیق بازار، رقبا و نیازهای مخاطبان هدف با استفاده از هوش مصنوعی</p>
-                </div>
-                
-                <div class="roadmap-step">
-                    <span class="step-number">۲</span>
-                    <h3>طراحی معماری اطلاعات</h3>
-                    <p>طراحی ساختار بهینه برای ناوبری و تجربه کاربری بر اساس تحلیل‌های انجام شده</p>
-                </div>
-                
-                <div class="roadmap-step">
-                    <span class="step-number">۳</span>
-                    <h3>تولید محتوای هوشمند</h3>
-                    <p>ایجاد محتوای بهینه شده برای سئو و تبدیل با کمک ابزارهای هوش مصنوعی</p>
-                </div>
-                
-                <div class="roadmap-step">
-                    <span class="step-number">۴</span>
-                    <h3>توسعه و پیاده‌سازی</h3>
-                    <p>کدنویسی با استفاده از تکنولوژی‌های روز و یکپارچه‌سازی سیستم‌های هوشمند</p>
-                </div>
-                
-                <div class="roadmap-step">
-                    <span class="step-number">۵</span>
-                    <h3>راه‌اندازی و پشتیبانی</h3>
-                    <p>استقرار پروژه و پشتیبانی مستمر همراه با بهینه‌سازی خودکار</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- بخش اعتماد و تضمین -->
-        <section id="trust" class="slide-in">
-            <h2>چرا به AMIXAMA اعتماد کنید؟</h2>
-            <div class="trust-badges">
-                <div class="badge">
-                    <i class="fas fa-shield-alt"></i>
+        <!-- بخش سیستم -->
+        <section id="system" class="section">
+            <div class="container">
+                <div class="grid grid-cols-2">
                     <div>
-                        <h4>تضمین کیفیت</h4>
-                        <p>کیفیت کار ما با استانداردهای بین‌المللی تضمین شده است</p>
+                        <span class="label">سیستم اصلی</span>
+                        <h2>معماری سه‌لایه</h2>
+                        <p class="hero-description">
+                            هر پروژه AMIXAMA بر اساس یک معماری دقیق ساخته می‌شود:
+                        </p>
+                        
+                        <div class="data-panel">
+                            <div class="data-row">
+                                <span class="data-key">لایه ۱: هندسی</span>
+                                <span class="data-value active">اسکلت ساختار</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-key">لایه ۲: ایزومتریک</span>
+                                <span class="data-value">تصویرسازی محدود</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-key">لایه ۳: تکنیکال</span>
+                                <span class="data-value">حس و رابط</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-key">هوش مصنوعی</span>
+                                <span class="data-value active">فعال</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-key">تکامل خودکار</span>
+                                <span class="data-value active">فعال</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="badge">
-                    <i class="fas fa-clock"></i>
+                    
                     <div>
-                        <h4>پشتیبانی ۲۴/۷</h4>
-                        <p>همراهی و پشتیبانی دائمی حتی پس از تحویل پروژه</p>
-                    </div>
-                </div>
-                
-                <div class="badge">
-                    <i class="fas fa-sync-alt"></i>
-                    <div>
-                        <h4>تکامل مستمر</h4>
-                        <p>وبسایت شما به مرور زمان هوشمندتر و بهینه‌تر می‌شود</p>
+                        <div class="system-diagram">
+                            <!-- اینجا دیاگرام سیستم با JavaScript پر می‌شود -->
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- بخش تماس -->
-        <section id="contact" class="slide-in">
-            <h2>راه ارتباطی</h2>
-            <p>برای مشاوره رایگان یا شروع پروژه خود، از طریق واتساپ با ما در ارتباط باشید:</p>
-            <div style="margin-top: 2rem;">
-                <a href="https://wa.me/989123456789" target="_blank" class="whatsapp-btn" style="display: inline-flex;">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>ارتباط از طریق واتساپ تجاری</span>
-                </a>
+        <!-- بخش ماژول‌ها -->
+        <section id="modules" class="section" style="background: var(--base-10);">
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <span class="label">ماژول‌ها</span>
+                        <h2>کامپوننت‌های ماژولار</h2>
+                        <p class="hero-description">
+                            هر بخش از سیستم به صورت ماژولار طراحی شده و قابلیت ارتقا دارد.
+                        </p>
+                    </div>
+                    
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-status"></div>
+                            <div class="module-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>هوش مصنوعی تحلیل‌گر</h3>
+                            <p>آنالیز صنعت و طراحی معماری اولیه</p>
+                            <div class="data-panel" style="margin-top: 20px; padding: 12px;">
+                                <div class="data-row">
+                                    <span class="data-key">وضعیت</span>
+                                    <span class="data-value active">فعال</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="module-card">
+                            <div class="module-status"></div>
+                            <div class="module-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>موتور طراحی هندسی</h3>
+                            <p>تولید خودکار گرید و لایه‌بندی</p>
+                            <div class="data-panel" style="margin-top: 20px; padding: 12px;">
+                                <div class="data-row">
+                                    <span class="data-key">وضعیت</span>
+                                    <span class="data-value active">فعال</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="module-card">
+                            <div class="module-status loading"></div>
+                            <div class="module-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>سیستم بهینه‌سازی</h3>
+                            <p>یادگیری و بهبود مداوم بر اساس داده</p>
+                            <div class="data-panel" style="margin-top: 20px; padding: 12px;">
+                                <div class="data-row">
+                                    <span class="data-key">وضعیت</span>
+                                    <span class="data-value warning">در حال بارگذاری</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش داشبورد -->
+        <section id="dashboard" class="section">
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <span class="label">داشبورد</span>
+                        <h2>مدیریت پروژه</h2>
+                        <p class="hero-description">
+                            برای کاربرانی که پرداخت اولیه را انجام داده‌اند.
+                        </p>
+                    </div>
+                    
+                    <div class="geometric-card">
+                        <div class="grid grid-cols-3">
+                            <div>
+                                <h3>وضعیت پروژه</h3>
+                                <div class="data-panel">
+                                    <div class="data-row">
+                                        <span class="data-key">پرداخت اولیه</span>
+                                        <span class="data-value active">تأیید شده</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span class="data-key">مرحله فعلی</span>
+                                        <span class="data-value">تحلیل هوشمند</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span class="data-key">زمان باقی‌مانده</span>
+                                        <span class="data-value">۷۲ ساعت</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3>مراحل بعدی</h3>
+                                <div class="data-panel">
+                                    <div class="data-row">
+                                        <span class="data-key">۱. تأیید تحلیل</span>
+                                        <span class="data-value">منتظر کاربر</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span class="data-key">۲. پرداخت میانی</span>
+                                        <span class="data-value">۳۳٪</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span class="data-key">۳. طراحی نهایی</span>
+                                        <span class="data-value">آماده</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3>اقدامات</h3>
+                                <div style="display: flex; flex-direction: column; gap: 12px;">
+                                    <button class="btn">
+                                        <i class="fas fa-eye"></i> مشاهده پیش‌نویس
+                                    </button>
+                                    <button class="btn">
+                                        <i class="fas fa-download"></i> دریافت فایل‌ها
+                                    </button>
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-comments"></i> ارتباط با تیم
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- دکمه واتساپ ثابت -->
-    <div class="whatsapp-contact">
-        <a href="https://wa.me/989123456789" target="_blank" class="whatsapp-btn">
-            <i class="fab fa-whatsapp"></i>
-            <span>شروع مکالمه</span>
-        </a>
-    </div>
-
     <!-- فوتر -->
     <footer>
-        <div class="footer-content">
-            <div>
-                <h3>AMIXAMA</h3>
-                <p>مرجع طراحی وبسایت‌های هوشمند و تکاملی</p>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>سیستم</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">معماری سه‌لایه</a></li>
+                        <li><a href="#system">گردش داده</a></li>
+                        <li><a href="#modules">ماژول‌ها</a></li>
+                        <li><a href="#dashboard">داشبورد</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>خدمات</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">وبسایت‌های فروش‌محور</a></li>
+                        <li><a href="#">وبسایت‌های صنعت‌محور</a></li>
+                        <li><a href="#">سیستم‌های تکاملی</a></li>
+                        <li><a href="#">بهینه‌سازی هوشمند</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>پشتیبانی</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">مستندات</a></li>
+                        <li><a href="#">آموزش‌ها</a></li>
+                        <li><a href="#">سوالات متداول</a></li>
+                        <li><a href="#">تماس فوری</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>شبکه‌ها</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fab fa-whatsapp"></i> واتساپ تجاری</a></li>
+                        <li><a href="#"><i class="fab fa-telegram"></i> تلگرام</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> لینکدین</a></li>
+                        <li><a href="#"><i class="fab fa-github"></i> گیت‌هاب</a></li>
+                    </ul>
+                </div>
             </div>
             
-            <div>
-                <h3>لینک‌های سریع</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li><a href="#about" style="color: var(--light-gray); text-decoration: none;">درباره ما</a></li>
-                    <li><a href="#services" style="color: var(--light-gray); text-decoration: none;">خدمات</a></li>
-                    <li><a href="#roadmap" style="color: var(--light-gray); text-decoration: none;">نقشه راه</a></li>
-                </ul>
+            <div class="copyright">
+                <p>© ۱۴۰۳ AMIXAMA Digital Systems. تمامی حقوق محفوظ است.</p>
+                <p class="mono" style="margin-top: 8px;">System v2.0 | Geometric-Isometric-Techwear Architecture</p>
             </div>
-            
-            <div>
-                <h3>اطلاعات تماس</h3>
-                <p><i class="fas fa-phone"></i> تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
-                <p><i class="fas fa-envelope"></i> ایمیل: info@amixama.com</p>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>© ۲۰۲۴ AMIXAMA Digital Services. تمامی حقوق محفوظ است.</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">این وبسایت با تکنولوژی‌های پیشرفته و هوش مصنوعی طراحی و توسعه یافته است.</p>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
-        // اسکرول نرم برای لینک‌های داخلی
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        // سیستم نویگیشن SPA
+        class NavigationSystem {
+            constructor() {
+                this.currentPage = 'home';
+                this.init();
+            }
+            
+            init() {
+                // رویداد کلیک منو
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const target = e.target.getAttribute('href').substring(1);
+                        this.navigateTo(target);
+                    });
+                });
                 
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+                // هندل کردن هش تغییر
+                window.addEventListener('hashchange', () => {
+                    const hash = window.location.hash.substring(1) || 'home';
+                    this.navigateTo(hash);
+                });
                 
-                const targetElement = document.querySelector(targetId);
+                // مقداردهی اولیه
+                const initialHash = window.location.hash.substring(1) || 'home';
+                this.navigateTo(initialHash);
+            }
+            
+            navigateTo(page) {
+                // آپدیت منو
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${page}`) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // اسکرول به بخش مورد نظر
+                const targetElement = document.getElementById(page);
                 if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
-                    // آپدیت وضعیت فعال منو
-                    document.querySelectorAll('.nav-menu a').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
                 }
-            });
-        });
-        
-        // انیمیشن اسکرول برای بخش‌ها
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('slide-in');
-                }
-            });
-        }, observerOptions);
-        
-        // مشاهده همه بخش‌ها
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-        
-        // تغییر استایل نوار نویگیشن هنگام اسکرول
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.backgroundColor = 'rgba(13, 27, 42, 0.98)';
-                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
-            } else {
-                header.style.backgroundColor = 'rgba(13, 27, 42, 0.95)';
-                header.style.boxShadow = 'none';
+                
+                this.currentPage = page;
+            }
+        }
+
+        // سیستم طراحی ایزومتریک
+        class IsometricSystem {
+            constructor() {
+                this.cube = document.getElementById('cube1');
+                this.init();
             }
             
-            // آپدیت منوی فعال بر اساس اسکرول
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-menu a');
+            init() {
+                if (!this.cube) return;
+                
+                // انیمیشن چرخش کوب
+                let rotation = 0;
+                setInterval(() => {
+                    rotation += 0.2;
+                    this.cube.style.transform = `rotateX(60deg) rotateZ(${45 + rotation}deg)`;
+                }, 50);
+                
+                // واکنش به اسکرول
+                let lastScroll = 0;
+                window.addEventListener('scroll', () => {
+                    const scrollY = window.scrollY;
+                    const delta = scrollY - lastScroll;
+                    
+                    // فقط در محدوده hero انیمیشن داشته باش
+                    if (scrollY < window.innerHeight) {
+                        this.cube.style.transform = `rotateX(${60 + delta * 0.1}deg) rotateZ(${45 + scrollY * 0.05}deg)`;
+                    }
+                    
+                    lastScroll = scrollY;
+                });
+            }
+        }
+
+        // سیستم دیاگرام
+        class DiagramSystem {
+            constructor() {
+                this.container = document.querySelector('.system-diagram');
+                this.nodes = [];
+                this.init();
+            }
             
-            let currentSection = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                    currentSection = '#' + section.getAttribute('id');
-                }
-            });
+            init() {
+                if (!this.container) return;
+                
+                // ایجاد نودهای دیاگرام
+                const nodePositions = [
+                    { id: 'ai', x: 50, y: 100, label: 'AI تحلیل' },
+                    { id: 'geo', x: 200, y: 50, label: 'هندسی' },
+                    { id: 'iso', x: 350, y: 100, label: 'ایزومتریک' },
+                    { id: 'tech', x: 500, y: 50, label: 'تکنیکال' },
+                    { id: 'output', x: 650, y: 100, label: 'خروجی' }
+                ];
+                
+                // ایجاد نودها
+                nodePositions.forEach(pos => {
+                    const node = document.createElement('div');
+                    node.className = 'diagram-node';
+                    node.style.left = `${pos.x}px`;
+                    node.style.top = `${pos.y}px`;
+                    node.textContent = pos.label;
+                    this.container.appendChild(node);
+                    this.nodes.push({ element: node, ...pos });
+                });
+                
+                // ایجاد اتصالات
+                const connections = [
+                    { from: 'ai', to: 'geo' },
+                    { from: 'geo', to: 'iso' },
+                    { from: 'iso', to: 'tech' },
+                    { from: 'tech', to: 'output' },
+                    { from: 'ai', to: 'output' }
+                ];
+                
+                setTimeout(() => {
+                    connections.forEach(conn => {
+                        this.createConnection(conn.from, conn.to);
+                    });
+                    
+                    // انیمیشن پالس برای نودها
+                    this.animateNodes();
+                }, 100);
+            }
             
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === currentSection) {
-                    link.classList.add('active');
-                }
-            });
+            createConnection(fromId, toId) {
+                const fromNode = this.nodes.find(n => n.id === fromId);
+                const toNode = this.nodes.find(n => n.id === toId);
+                
+                if (!fromNode || !toNode) return;
+                
+                const connection = document.createElement('div');
+                connection.className = 'diagram-connection';
+                
+                // محاسبه موقعیت و زاویه
+                const x1 = fromNode.x + 60;
+                const y1 = fromNode.y + 30;
+                const x2 = toNode.x;
+                const y2 = toNode.y + 30;
+                
+                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                
+                connection.style.width = `${length}px`;
+                connection.style.left = `${x1}px`;
+                connection.style.top = `${y1}px`;
+                connection.style.transform = `rotate(${angle}deg)`;
+                
+                this.container.appendChild(connection);
+            }
+            
+            animateNodes() {
+                let index = 0;
+                setInterval(() => {
+                    this.nodes.forEach(node => {
+                        node.element.style.borderColor = 'var(--base-40)';
+                    });
+                    
+                    const currentNode = this.nodes[index % this.nodes.length];
+                    currentNode.element.style.borderColor = 'var(--accent)';
+                    currentNode.element.style.boxShadow = '0 0 10px var(--accent)';
+                    
+                    setTimeout(() => {
+                        currentNode.element.style.boxShadow = 'none';
+                    }, 500);
+                    
+                    index++;
+                }, 1000);
+            }
+        }
+
+        // سیستم پرداخت و پروژه
+        class ProjectSystem {
+            constructor() {
+                this.paymentStatus = 'initial';
+                this.projectStages = [
+                    { id: 'analysis', name: 'تحلیل هوشمند', status: 'active' },
+                    { id: 'design', name: 'طراحی هندسی', status: 'pending' },
+                    { id: 'development', name: 'توسعه', status: 'pending' },
+                    { id: 'optimization', name: 'بهینه‌سازی', status: 'pending' }
+                ];
+                this.init();
+            }
+            
+            init() {
+                // شبیه‌سازی وضعیت پرداخت
+                this.simulatePaymentCheck();
+                
+                // رویدادهای دکمه‌های داشبورد
+                document.querySelectorAll('.btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        if (btn.textContent.includes('مشاهده پیش‌نویس')) {
+                            this.showPreview();
+                        } else if (btn.textContent.includes('دریافت فایل‌ها')) {
+                            this.downloadFiles();
+                        } else if (btn.textContent.includes('ارتباط با تیم')) {
+                            this.contactTeam();
+                        }
+                    });
+                });
+            }
+            
+            simulatePaymentCheck() {
+                // در حالت واقعی، اینجا با سرور چک می‌شود
+                setTimeout(() => {
+                    const hasInitialPayment = confirm('آیا پرداخت اولیه (یک سوم) را انجام داده‌اید؟');
+                    
+                    if (hasInitialPayment) {
+                        this.paymentStatus = 'paid';
+                        this.updateDashboard();
+                        
+                        // نمایش پیام وضعیت
+                        const statusAlert = document.createElement('div');
+                        statusAlert.className = 'geometric-card';
+                        statusAlert.innerHTML = `
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-check-circle" style="color: var(--system-green);"></i>
+                                <div>
+                                    <h4 style="margin: 0;">پرداخت اولیه تأیید شد</h4>
+                                    <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: #b0b0b0;">
+                                        پروژه شما در مرحله تحلیل هوشمند قرار دارد.
+                                    </p>
+                                </div>
+                            </div>
+                        `;
+                        statusAlert.style.marginTop = '20px';
+                        document.querySelector('#dashboard .geometric-card').parentNode.appendChild(statusAlert);
+                        
+                        setTimeout(() => {
+                            statusAlert.style.opacity = '0';
+                            statusAlert.style.transform = 'translateY(-10px)';
+                            setTimeout(() => statusAlert.remove(), 300);
+                        }, 5000);
+                    }
+                }, 1000);
+            }
+            
+            updateDashboard() {
+                // آپدیت وضعیت در داشبورد
+                const statusElements = document.querySelectorAll('.data-value');
+                statusElements.forEach(el => {
+                    if (el.textContent === 'منتظر پرداخت') {
+                        el.textContent = 'تأیید شده';
+                        el.className = 'data-value active';
+                    }
+                });
+            }
+            
+            showPreview() {
+                alert('🎴 پیش‌نمایش طراحی\n\nدر این بخش:\n1. گریدبندی هندسی اولیه\n2. پالت رنگی تکنیکال\n3. چیدمان ماژولار\n\nاین طرح طی ۴۸ ساعت برای تأیید نهایی آماده می‌شود.');
+            }
+            
+            downloadFiles() {
+                alert('📁 دانلود فایل‌ها\n\nفایل‌های در دسترس:\n1. پروپوزال اولیه پروژه.pdf\n2. مودبورد طراحی.png\n3. مستندات فنی.docx\n\nدر نسخه واقعی، فایل‌ها دانلود می‌شوند.');
+            }
+            
+            contactTeam() {
+                const team = [
+                    { name: 'مدیر پروژه', contact: 'واتساپ: ۰۹۱۲۳۴۵۶۷۸۹' },
+                    { name: 'طراح رابط', contact: 'ایمیل: design@amixama.com' },
+                    { name: 'پشتیبانی فنی', contact: 'تلگرام: @amixama_support' }
+                ];
+                
+                let message = '👥 تیم اختصاصی شما:\n\n';
+                team.forEach(member => {
+                    message += `• ${member.name}\n  ${member.contact}\n\n`;
+                });
+                
+                alert(message);
+            }
+        }
+
+        // سیستم انیمیشن اسکرول
+        class ScrollAnimationSystem {
+            constructor() {
+                this.observer = null;
+                this.init();
+            }
+            
+            init() {
+                // Intersection Observer برای انیمیشن‌های ظاهر شدن
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('slide-in');
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+                
+                // مشاهده تمام بخش‌ها
+                document.querySelectorAll('section').forEach(section => {
+                    this.observer.observe(section);
+                });
+                
+                // انیمیشن برای کارت‌ها
+                document.querySelectorAll('.geometric-card, .module-card').forEach(card => {
+                    this.observer.observe(card);
+                });
+            }
+        }
+
+        // سیستم آمار زنده
+        class StatsSystem {
+            constructor() {
+                this.stats = {
+                    projects: 0,
+                    modules: 0,
+                    optimizations: 0
+                };
+                this.init();
+            }
+            
+            init() {
+                // شبیه‌سازی آمار افزایشی
+                this.animateNumber('projects', 47);
+                this.animateNumber('modules', 12);
+                this.animateNumber('optimizations', 156);
+            }
+            
+            animateNumber(stat, target) {
+                let current = 0;
+                const increment = target / 50;
+                const interval = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(interval);
+                    }
+                    
+                    // اینجا می‌توانید اعداد را در DOM آپدیت کنید
+                    // console.log(`${stat}: ${Math.floor(current)}`);
+                }, 30);
+            }
+        }
+
+        // مقداردهی اولیه سیستم‌ها
+        document.addEventListener('DOMContentLoaded', () => {
+            // سیستم‌های مختلف را راه‌اندازی کن
+            const navSystem = new NavigationSystem();
+            const isoSystem = new IsometricSystem();
+            const diagramSystem = new DiagramSystem();
+            const projectSystem = new ProjectSystem();
+            const scrollSystem = new ScrollAnimationSystem();
+            const statsSystem = new StatsSystem();
+            
+            // ثبت global برای دسترسی دیباگ
+            window.AMIXAMA = {
+                nav: navSystem,
+                iso: isoSystem,
+                diagram: diagramSystem,
+                project: projectSystem,
+                scroll: scrollSystem,
+                stats: statsSystem
+            };
+            
+            console.log('🚀 AMIXAMA Systems Initialized');
+            console.log('System Architecture: Geometric + Isometric + Techwear');
         });
-        
-        // شبیه‌سازی پنل کاربری
-        document.querySelector('.user-icon').addEventListener('click', () => {
-            alert('پنل کاربری AMIXAMA\n\nاین بخش در نسخه کامل وبسایت شامل:\n- وضعیت پروژه‌های جاری\n- تاریخچه پرداخت‌ها\n- تنظیمات حساب کاربری\n- پشتیبانی تخصصی\nمی‌باشد.');
-        });
-        
-        // نمایش تأییدیه قبل از شروع پروژه
-        document.querySelectorAll('.whatsapp-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                if (!confirm('برای شروع پروژه، نیاز به پرداخت ۱/۳ مبلغ کل به عنوان پیش‌پرداخت دارید. آیا می‌خواهید به واتساپ هدایت شوید؟')) {
-                    e.preventDefault();
-                }
-            });
+
+        // هندل خطاهای جهانی
+        window.addEventListener('error', (e) => {
+            console.error('System Error:', e.error);
         });
     </script>
 </body>
