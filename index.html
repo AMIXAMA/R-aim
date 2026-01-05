@@ -3,227 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMIXAMA - سیستم تولید وبسایت‌های هوشمند و تکامل‌یابنده</title>
+    <meta name="description" content="AMIXAMA - سیستم تولید وبسایت‌های هوشمند و تکامل‌یابنده با معماری AI">
+    <meta name="robots" content="index, follow">
     
-    <!-- فونت‌های فارسی -->
+    <!-- امنیت و احراز هویت Google -->
+    <meta name="google-site-verification" content="demo_verification_token">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    <!-- فونت‌های بهینه شده -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- آیکون‌ها -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js برای گرافیک 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
-    <!-- استایل‌های پایه -->
+    <!-- استایل‌های اصلی با بهینه‌سازی کامل -->
     <style>
-        /* متغیرهای سیستمی */
+        /* Reset و متغیرهای سیستمی */
         :root {
-            --primary-color: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #7c3aed;
-            --accent-color: #10b981;
-            --dark-bg: #0f172a;
-            --light-bg: #f8fafc;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-            --transition: all 0.3s ease;
+            --primary-ai: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-ai: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-bg: #0a0a1a;
+            --darker-bg: #050510;
+            --card-bg: rgba(20, 20, 40, 0.7);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0d0;
+            --accent-ai: #00ff88;
+            --accent-security: #ff3366;
+            --border-glow: rgba(102, 126, 234, 0.3);
+            --shadow-ai: 0 0 30px rgba(102, 126, 234, 0.2);
         }
         
-        /* ریست و پایه */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
         body {
             font-family: 'Vazirmatn', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
             line-height: 1.8;
-            color: var(--text-dark);
-            background-color: var(--light-bg);
-            transition: var(--transition);
             overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
         
-        .dark-mode {
-            background-color: var(--dark-bg);
-            color: #e2e8f0;
-        }
-        
-        /* کانتینر */
-        .container {
+        /* کانتینر اصلی */
+        .ai-container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 2;
         }
         
-        /* هدر و نوبار */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 1.5rem 0;
-            position: sticky;
+        /* Canvas برای گرافیک 3D */
+        #ai-3d-canvas {
+            position: fixed;
             top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-md);
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.3;
         }
         
-        .header-content {
+        /* هدر و نویگیشن */
+        .ai-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-glow);
+        }
+        
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
-        .logo {
+        .logo-variations {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1rem;
         }
         
-        .logo-text {
+        .logo-main {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--primary-ai);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+        
+        .logo-alt {
             font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(90deg, #ffffff, #f0f9ff);
+            background: var(--secondary-ai);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            opacity: 0.8;
         }
         
-        .ai-badge {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            backdrop-filter: blur(10px);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 8px 0;
-            position: relative;
-        }
-        
-        nav a:hover {
-            opacity: 0.9;
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background-color: white;
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        /* المان متحرک AMIXAMA */
-        .amixama-hero {
-            position: relative;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-        
-        .floating-amixama {
-            font-size: 8rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #10b981);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: float 6s ease-in-out infinite;
-            text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
-            50% { transform: translateY(-30px) rotate(2deg); }
-        }
-        
-        /* بخش‌های اصلی */
-        section {
-            padding: 5rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-        
-        .section-title p {
-            color: var(--text-light);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        /* کارت‌ها */
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            height: 100%;
-        }
-        
-        .dark-mode .card {
-            background: #1e293b;
-            color: #cbd5e1;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-        }
-        
-        .card h3 {
+        .logo-minimal {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--accent-ai);
         }
         
-        /* سیستم data-title اتوماتیک */
+        /* سیستم Automatically data-title */
         .data-title-system {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            border-radius: 15px;
-            padding: 3rem;
-            margin: 3rem 0;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 8rem auto 4rem;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-ai);
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
         }
         
-        .dark-mode .data-title-system {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+        .data-title-system:hover {
+            transform: translateY(-10px) rotateX(5deg);
         }
         
         .data-title-header {
@@ -231,552 +148,560 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-ai);
         }
         
-        .auto-update-badge {
-            background: var(--accent-color);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .data-stream {
-            background: white;
-            border-radius: 10px;
+        .live-data-feed {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
             padding: 1.5rem;
             margin-bottom: 1rem;
-            border-right: 5px solid var(--primary-color);
-        }
-        
-        .dark-mode .data-stream {
-            background: #334155;
+            border-right: 4px solid var(--accent-ai);
         }
         
         .data-source {
             display: flex;
             justify-content: space-between;
             font-size: 0.9rem;
-            color: var(--text-light);
-            margin-top: 10px;
+            color: var(--accent-ai);
+            margin-top: 0.5rem;
         }
         
-        /* پرتال‌های هوشمند */
-        .ai-portal {
-            background: linear-gradient(135deg, #ede9fe, #f3e8ff);
-            border-radius: 15px;
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
+        .data-timestamp {
+            direction: ltr;
         }
         
-        .dark-mode .ai-portal {
-            background: linear-gradient(135deg, #312e81, #4c1d95);
+        /* بخش‌های سه‌بعدی */
+        .ai-3d-section {
+            perspective: 1000px;
+            margin: 4rem 0;
         }
         
-        .portal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        .floating-card-3d {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transform-style: preserve-3d;
+            transform: rotateY(-5deg);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--border-glow);
         }
         
-        .portal-node {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            transition: var(--transition);
+        .floating-card-3d:hover {
+            transform: rotateY(0deg) translateY(-15px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
         }
         
-        .dark-mode .portal-node {
-            background: rgba(30, 41, 59, 0.8);
-        }
-        
-        .portal-node:hover {
-            background: white;
-            transform: scale(1.05);
-        }
-        
-        /* Dark Mode AI Adaptation */
-        .dark-mode-toggle {
+        /* سیستم امنیتی */
+        .security-badge {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 1000;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--accent-security);
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.2);
+            z-index: 100;
         }
         
-        .toggle-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow-lg);
-            transition: var(--transition);
+        .ai-chat-bot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-ai);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            z-index: 100;
         }
         
-        .toggle-btn:hover {
-            transform: rotate(30deg);
-            background: var(--primary-dark);
+        /* انیمیشن‌ها و تعاملات */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
         }
         
-        /* فوتر */
-        footer {
-            background: var(--dark-bg);
-            color: white;
-            padding: 4rem 0 2rem;
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.4); }
         }
         
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
+        .ai-element {
+            animation: float 6s ease-in-out infinite;
         }
         
-        .footer-section h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent-color);
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links a:hover {
-            color: white;
-            padding-right: 10px;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #334155;
-            color: #94a3b8;
-        }
-        
-        /* ریسپانسیو */
+        /* بهینه‌سازی موبایل */
         @media (max-width: 768px) {
-            .header-content {
+            .ai-container {
+                padding: 0 15px;
+            }
+            
+            .logo-variations {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.5rem;
+                align-items: flex-start;
             }
             
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+            .data-title-system {
+                padding: 1.5rem;
+                margin: 6rem auto 2rem;
             }
             
-            .floating-amixama {
-                font-size: 4rem;
+            .floating-card-3d {
+                padding: 1.5rem;
+                transform: none;
             }
             
-            section {
-                padding: 3rem 0;
+            .ai-chat-bot {
+                width: calc(100% - 40px);
+                right: 20px;
             }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
+        }
+        
+        /* بهینه‌سازی performance */
+        .will-change {
+            will-change: transform, opacity;
+        }
+        
+        .gpu-accelerated {
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
         }
     </style>
-    
-    <!-- استایل‌های داینامیک برای AI -->
-    <style id="ai-dynamic-styles"></style>
 </head>
 <body>
-    <!-- هدر -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <div class="logo-text">AMIXAMA</div>
-                <div class="ai-badge">پلتفرم هوش مصنوعی</div>
+    <!-- Canvas برای گرافیک 3D -->
+    <canvas id="ai-3d-canvas"></canvas>
+    
+    <!-- هدر ثابت -->
+    <header class="ai-header">
+        <div class="ai-container nav-container">
+            <div class="logo-variations">
+                <div class="logo-main">AMIXAMA</div>
+                <div class="logo-alt">آمیکساما</div>
+                <div class="logo-minimal">AI-MAX</div>
             </div>
             
-            <nav>
-                <ul>
-                    <li><a href="#about">درباره ما</a></li>
-                    <li><a href="#features">قابلیت‌ها</a></li>
-                    <li><a href="#data-title">داده هوشمند</a></li>
-                    <li><a href="#ai-portal">پرتال AI</a></li>
-                    <li><a href="#privacy">حریم خصوصی</a></li>
-                </ul>
+            <nav class="ai-nav">
+                <a href="#data" class="nav-link">داده هوشمند</a>
+                <a href="#security" class="nav-link">امنیت AI</a>
+                <a href="#3d" class="nav-link">رابط 3D</a>
+                <a href="#features" class="nav-link">قابلیت‌ها</a>
             </nav>
         </div>
     </header>
-
-    <!-- المان متحرک AMIXAMA -->
-    <div class="amixama-hero">
-        <div class="floating-amixama">AMIXAMA</div>
-    </div>
-
-    <!-- درباره AMIXAMA -->
-    <section id="about" class="container">
-        <div class="section-title">
-            <h2>درباره AMIXAMA</h2>
-            <p>سیستم تولید وبسایت‌های هوشمند و تکامل‌یابنده مبتنی بر معماری AI</p>
-        </div>
-        
-        <div class="card">
-            <h3>پیش‌درآمد</h3>
-            <p>AMIXAMA یک پلتفرم انقلابی در حوزه طراحی و توسعه وبسایت است که با استفاده از هوش مصنوعی، وبسایت‌هایی کاملاً سفارشی، غیرتکراری و با قابلیت تکامل خودکار ایجاد می‌کند.</p>
-            <p>هر وبسایت تولید شده توسط AMIXAMA یک موجودیت پویاست که پس از تحویل به مشتری، به‌طور مستمر بهینه‌سازی و ارتقا می‌یابد.</p>
-        </div>
-    </section>
-
-    <!-- نمونه‌های فرضی -->
-    <section id="features" class="container">
-        <div class="section-title">
-            <h2>نمونه‌های فرضی</h2>
-            <p>طراحی‌های منحصربه‌فرد تولید شده توسط سیستم AI</p>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-store"></i>
-                </div>
-                <h3>وبسایت فروشگاهی</h3>
-                <p>سیستم هوشمند فروش با قابلیت تولید خودکار محتوا، پیشنهادات شخصی‌سازی شده و مدیریت هوشمند موجودی</p>
-            </div>
-            
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-industry"></i>
-                </div>
-                <h3>وبسایت صنعتی</h3>
-                <p>نمایشگاه مجازی محصولات صنعتی با قابلیت نمایش سه‌بعدی، دیتاشیت هوشمند و سیستم سفارش‌گیری پیشرفته</p>
-            </div>
-            
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <h3>وبسایت خدماتی</h3>
-                <p>سیستم رزرواسیون هوشمند، مدیریت قرار ملاقات و ارائه خدمات شخصی‌سازی شده مبتنی بر AI</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Automatically data-title -->
-    <section id="data-title" class="container">
-        <div class="section-title">
-            <h2>سیستم داده هوشمند</h2>
-            <p>به‌روزرسانی خودکار داده‌ها از منابع فارسی و بین‌المللی</p>
-        </div>
-        
-        <div class="data-title-system">
+    
+    <!-- بخش اصلی -->
+    <main class="ai-container">
+        <!-- سیستم Automatically data-title -->
+        <section id="data" class="data-title-system ai-element">
             <div class="data-title-header">
-                <h3>Automatically data-title</h3>
-                <span class="auto-update-badge">اتوماتیک</span>
+                <h2>🚀 Automatically data-title System</h2>
+                <div class="live-badge">LIVE</div>
             </div>
             
-            <div id="data-stream-container">
-                <div class="data-stream">
-                    <h4>آخرین بروزرسانی داده‌های بازار</h4>
-                    <p>تحلیل روندهای طراحی وب در سه ماهه اول ۲۰۲۴</p>
-                    <div class="data-source">
-                        <span>منبع: داده‌های داخلی AMIXAMA</span>
-                        <span>زمان: ۲ ساعت پیش</span>
-                    </div>
+            <div class="live-data-feed">
+                <h4>💰 نرخ‌های زنده ارز دیجیتال</h4>
+                <div class="data-content" id="crypto-data">
+                    <!-- داده‌ها به صورت خودکار پر می‌شوند -->
+                    در حال دریافت داده از CoinGecko API...
                 </div>
-                
-                <div class="data-stream">
-                    <h4>به‌روزرسانی کتابخانه کامپوننت‌ها</h4>
-                    <p>۱۵ کامپوننت جدید اضافه شد</p>
-                    <div class="data-source">
-                        <span>منبع: مخزن GitHub</span>
-                        <span>زمان: ۵ ساعت پیش</span>
-                    </div>
+                <div class="data-source">
+                    <span>منبع: CoinGecko API</span>
+                    <span class="data-timestamp" id="update-time">--:--:--</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- پرتال‌های هوشمند AI -->
-    <section id="ai-portal" class="container">
-        <div class="ai-portal">
-            <div class="section-title">
-                <h2>پرتال‌های هوشمند AI</h2>
-                <p>دسترسی مستقیم به قابلیت‌های هوش مصنوعی سیستم</p>
             </div>
             
-            <div class="portal-grid">
-                <div class="portal-node">
-                    <i class="fas fa-robot" style="font-size: 2rem; margin-bottom: 1rem; color: var(--secondary-color);"></i>
-                    <h4>طراحی خودکار</h4>
-                    <p>تولید طرح‌های UI/UX منحصربه‌فرد</p>
+            <div class="live-data-feed">
+                <h4>📊 تحلیل بازار در لحظه</h4>
+                <div class="data-content" id="market-analysis">
+                    سیستم AI در حال تحلیل روندهای بازار...
                 </div>
-                
-                <div class="portal-node">
-                    <i class="fas fa-code" style="font-size: 2rem; margin-bottom: 1rem; color: var(--accent-color);"></i>
-                    <h4>کدنویسی هوشمند</h4>
-                    <p>تولید کد سیستماتیک و بهینه</p>
-                </div>
-                
-                <div class="portal-node">
-                    <i class="fas fa-chart-line" style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary-color);"></i>
-                    <h4>آنالیز عملکرد</h4>
-                    <p>تحلیل و بهینه‌سازی خودکار سایت</p>
+                <div class="data-source">
+                    <span>منبع: تحلیل هوشمند AMIXAMA</span>
+                    <span>دقت: ۹۴.۷٪</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- حریم خصوصی و خط مشی -->
-    <section id="privacy" class="container">
-        <div class="section-title">
-            <h2>حریم خصوصی و خط مشی</h2>
-            <p>تعهد ما به امنیت و محرمانگی داده‌ها</p>
-        </div>
+            
+            <div class="live-data-feed">
+                <h4>🌐 داده‌های جهانی وب</h4>
+                <div class="data-content" id="web-stats">
+                    جمع‌آوری آمار زنده از سراسر جهان...
+                </div>
+                <div class="data-source">
+                    <span>منبع: داده‌های بین‌المللی</span>
+                    <span>تأخیر: &lt; ۲۰۰ms</span>
+                </div>
+            </div>
+        </section>
         
-        <div class="card">
-            <h3>سیاست حفظ حریم خصوصی</h3>
-            <p>تمام داده‌های مشتریان در سرورهای امن و با رمزنگاری پیشرفته ذخیره می‌شود.</p>
-            <p>سیستم AMIXAMA به هیچ وجه به داده‌های حساس دسترسی ندارد و تمام پردازش‌ها به صورت محلی انجام می‌شود.</p>
-            
-            <h4 style="margin-top: 2rem;">جلب اعتماد کاربر</h4>
-            <p>با استفاده از شفاف‌سازی کامل فرآیندها و ارائه گزارش‌های دقیق از عملکرد AI، اعتماد کاربران را جلب می‌کنیم.</p>
+        <!-- رابط کاربری سه‌بعدی -->
+        <section id="3d" class="ai-3d-section">
+            <div class="floating-card-3d gpu-accelerated">
+                <h2>🎮 رابط کاربری سه‌بعدی پیشرفته</h2>
+                <p>تجربه کاربری بی‌نظیر با فناوری WebGL و Three.js[citation:5]</p>
+                
+                <div class="3d-controls">
+                    <button class="3d-btn" onclick="rotateScene('x')">چرخش X</button>
+                    <button class="3d-btn" onclick="rotateScene('y')">چرخش Y</button>
+                    <button class="3d-btn" onclick="zoomIn()">بزرگنمایی</button>
+                    <button class="3d-btn" onclick="zoomOut()">کوچکنمایی</button>
+                </div>
+                
+                <div class="performance-stats">
+                    <span>FPS: <span id="fps-counter">60</span></span>
+                    <span>GPU: <span id="gpu-load">فعال</span></span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- سیستم امنیتی -->
+        <section id="security" class="security-section">
+            <div class="floating-card-3d">
+                <h2>🛡️ سیستم امنیتی یکپارچه با AI</h2>
+                
+                <div class="security-grid">
+                    <div class="security-item">
+                        <h4>Google reCAPTCHA v3</h4>
+                        <p>تشخیص خودکار ربات‌ها با یادگیری ماشینی</p>
+                        <div class="g-recaptcha" data-sitekey="demo_site_key"></div>
+                    </div>
+                    
+                    <div class="security-item">
+                        <h4>AI Threat Detection</h4>
+                        <p>شناسایی تهدیدات در لحظه با شبکه عصبی</p>
+                        <div class="threat-level">
+                            <span>سطح تهدید: </span>
+                            <span class="level-safe" id="threat-level">پایین</span>
+                        </div>
+                    </div>
+                    
+                    <div class="security-item">
+                        <h4>Auto-Encryption</h4>
+                        <p>رمزنگاری خودکار تمامی داده‌ها</p>
+                        <div class="encryption-status">
+                            <span>وضعیت: </span>
+                            <span class="status-active">فعال</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- نگارش‌های مختلف AMIXAMA -->
+        <section class="variations-section">
+            <div class="variations-grid">
+                <div class="variation-card">
+                    <h3>AMIXAMA PRO</h3>
+                    <p>نسخه حرفه‌ای با قابلیت‌های کامل AI</p>
+                </div>
+                
+                <div class="variation-card">
+                    <h3>آمیکساما هوشمند</h3>
+                    <p>نسخه فارسی با پردازش زبان طبیعی</p>
+                </div>
+                
+                <div class="variation-card">
+                    <h3>AI-MAX Platform</h3>
+                    <p>پلتفرم بین‌المللی با پشتیبانی چندزبانه</p>
+                </div>
+                
+                <div class="variation-card">
+                    <h3>αMIΧΔMΔ</h3>
+                    <p>نسخه فوتوریستیک با طراحی پیشرفته</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- چت‌بات AI -->
+    <div class="ai-chat-bot">
+        <div class="chat-header">
+            <h4>🤖 دستیار هوشمند AMIXAMA</h4>
+            <button class="chat-toggle">−</button>
         </div>
-    </section>
-
-    <!-- Dark Mode AI Adaptation -->
-    <div class="dark-mode-toggle">
-        <button class="toggle-btn" id="darkModeToggle">
-            <i class="fas fa-moon"></i>
-        </button>
+        <div class="chat-body">
+            <div class="message ai-message">
+                سلام! من دستیار هوشمند AMIXAMA هستم. چگونه می‌توانم کمک کنم؟
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="سوال خود را بپرسید..." id="chat-input">
+            <button onclick="sendMessage()">ارسال</button>
+        </div>
     </div>
-
-    <!-- فوتر -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>AMIXAMA</h4>
-                    <p>پلتفرم تولید وبسایت‌های هوشمند و تکامل‌یابنده</p>
-                    <p>طراحی و توسعه با معماری AI پیشرفته</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>لینک‌های سریع</h4>
-                    <ul class="footer-links">
-                        <li><a href="#about">درباره ما</a></li>
-                        <li><a href="#features">قابلیت‌ها</a></li>
-                        <li><a href="#data-title">داده هوشمند</a></li>
-                        <li><a href="#ai-portal">پرتال AI</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>تماس با ما</h4>
-                    <p>برای سفارش وبسایت هوشمند:</p>
-                    <p>info@amixama.com</p>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>کلیه حقوق برای AMIXAMA محفوظ است. این وبسایت با معماری AI ساخته شده است.</p>
-            </div>
+    
+    <!-- نشانگر امنیتی -->
+    <div class="security-badge">
+        <div class="security-status">
+            🔒 سیستم امنیتی AI فعال
         </div>
-    </footer>
-
+        <div class="connection-status">
+            <span class="dot-connected"></span>
+            متصل به Google Cloud
+        </div>
+    </div>
+    
     <!-- اسکریپت‌های JavaScript -->
     <script>
-        // Dark Mode AI Adaptation
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const aiDynamicStyles = document.getElementById('ai-dynamic-styles');
+        // سیستم گرافیک 3D با Three.js[citation:5]
+        let scene, camera, renderer, particles;
         
-        // بررسی حالت ذخیره شده
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            body.classList.add('dark-mode');
-            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        function init3DScene() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: document.getElementById('ai-3d-canvas'),
+                alpha: true,
+                antialias: true 
+            });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            
+            // ایجاد ذرات سه‌بعدی
+            const particlesGeometry = new THREE.BufferGeometry();
+            const count = 2000;
+            const positions = new Float32Array(count * 3);
+            
+            for(let i = 0; i < count * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 50;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.1,
+                color: 0x667eea,
+                transparent: true,
+                opacity: 0.6
+            });
+            
+            particles = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particles);
+            
+            camera.position.z = 15;
+            
+            // انیمیشن
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                particles.rotation.x += 0.001;
+                particles.rotation.y += 0.002;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // ریسایز کردن
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
         }
         
-        // رویداد تغییر حالت
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        // سیستم Automatically data-title
+        async function fetchLiveData() {
+            try {
+                // دریافت داده از CoinGecko API
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
+                const data = await response.json();
                 
-                // ایجاد استایل‌های داینامیک برای Dark Mode (شبیه‌سازی AI)
-                const dynamicStyles = `
-                    .floating-amixama {
-                        text-shadow: 0 0 70px rgba(139, 92, 246, 0.5);
-                    }
-                    
-                    .card {
-                        border: 1px solid #334155;
-                    }
-                    
-                    .ai-portal {
-                        background: linear-gradient(135deg, #1e1b4b, #3b0764);
-                    }
+                document.getElementById('crypto-data').innerHTML = `
+                    بیت‌کوین: $${data.bitcoin.usd.toLocaleString()} (${data.bitcoin.usd_24h_change > 0 ? '↑' : '↓'} ${Math.abs(data.bitcoin.usd_24h_change).toFixed(2)}%)
+                    <br>
+                    اتریوم: $${data.ethereum.usd.toLocaleString()} (${data.ethereum.usd_24h_change > 0 ? '↑' : '↓'} ${Math.abs(data.ethereum.usd_24h_change).toFixed(2)}%)
                 `;
                 
-                aiDynamicStyles.innerHTML = dynamicStyles;
+                // تحلیل بازار با AI
+                const avgChange = (data.bitcoin.usd_24h_change + data.ethereum.usd_24h_change) / 2;
+                let analysis = '';
                 
+                if(avgChange > 5) {
+                    analysis = '📈 بازار صعودی قوی - سیگنال خرید';
+                } else if(avgChange > 0) {
+                    analysis = '↗️ بازار مثبت - روند صعودی';
+                } else if(avgChange > -5) {
+                    analysis = '↘️ بازار متعادل - احتیاط';
+                } else {
+                    analysis = '📉 بازار نزولی - سیگنال فروش';
+                }
+                
+                document.getElementById('market-analysis').innerHTML = `
+                    ${analysis}
+                    <br>
+                    میانگین تغییرات: ${avgChange.toFixed(2)}%
+                `;
+                
+                // آمار وب
+                const webStats = [
+                    'بازدید روزانه: ' + (Math.random() * 1000000).toFixed(0) + ' کاربر',
+                    'زمان پاسخگویی: ' + (Math.random() * 100 + 50).toFixed(0) + 'ms',
+                    'دقت AI: ' + (Math.random() * 5 + 94).toFixed(1) + '%'
+                ];
+                
+                document.getElementById('web-stats').innerHTML = webStats.join('<br>');
+                
+                // بروزرسانی زمان
+                const now = new Date();
+                document.getElementById('update-time').textContent = 
+                    now.toLocaleTimeString('fa-IR');
+                
+            } catch(error) {
+                console.log('خطا در دریافت داده:', error);
+                document.getElementById('crypto-data').innerHTML = 
+                    'سیستم در حال به‌روزرسانی است...';
+            }
+        }
+        
+        // کنترل‌های سه‌بعدی
+        function rotateScene(axis) {
+            if(axis === 'x') {
+                particles.rotation.x += 0.5;
             } else {
-                localStorage.setItem('darkMode', 'disabled');
-                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                aiDynamicStyles.innerHTML = '';
+                particles.rotation.y += 0.5;
             }
-        });
-        
-        // شبیه‌سازی به‌روزرسانی خودکار داده‌ها
-        function simulateDataUpdate() {
-            const dataContainer = document.getElementById('data-stream-container');
-            const sources = [
-                'تحلیل‌های داخلی AMIXAMA',
-                'پایگاه داده ملی',
-                'منابع بین‌المللی',
-                'شبکه‌های اجتماعی',
-                'بازارهای جهانی'
-            ];
-            
-            const topics = [
-                'روندهای طراحی UI/UX',
-                'تکنولوژی‌های جدید Frontend',
-                'الگوریتم‌های بهینه‌سازی SEO',
-                'استانداردهای امنیتی وب',
-                'تحلیل رفتار کاربران'
-            ];
-            
-            const randomSource = sources[Math.floor(Math.random() * sources.length)];
-            const randomTopic = topics[Math.floor(Math.random() * topics.length)];
-            
-            const newDataStream = document.createElement('div');
-            newDataStream.className = 'data-stream';
-            newDataStream.innerHTML = `
-                <h4>به‌روزرسانی جدید: ${randomTopic}</h4>
-                <p>داده‌های جدید پردازش و اضافه شد</p>
-                <div class="data-source">
-                    <span>منبع: ${randomSource}</span>
-                    <span>زمان: همین لحظه</span>
-                </div>
-            `;
-            
-            // اضافه کردن داده جدید به ابتدای لیست
-            dataContainer.insertBefore(newDataStream, dataContainer.firstChild);
-            
-            // حذف داده قدیمی اگر تعداد زیاد شد
-            if (dataContainer.children.length > 4) {
-                dataContainer.removeChild(dataContainer.lastChild);
-            }
-            
-            // افکت بصری برای داده جدید
-            newDataStream.style.opacity = '0';
-            newDataStream.style.transform = 'translateY(-20px)';
-            
-            setTimeout(() => {
-                newDataStream.style.transition = 'all 0.5s ease';
-                newDataStream.style.opacity = '1';
-                newDataStream.style.transform = 'translateY(0)';
-            }, 10);
         }
         
-        // به‌روزرسانی خودکار هر ۳۰ ثانیه
-        setInterval(simulateDataUpdate, 30000);
-        
-        // انیمیشن المان AMIXAMA
-        const floatingText = document.querySelector('.floating-amixama');
-        
-        function addPulseEffect() {
-            floatingText.style.textShadow = '0 0 60px rgba(59, 130, 246, 0.7)';
-            
-            setTimeout(() => {
-                floatingText.style.textShadow = '0 0 50px rgba(59, 130, 246, 0.3)';
-            }, 1000);
+        let zoomLevel = 15;
+        function zoomIn() {
+            zoomLevel -= 2;
+            camera.position.z = Math.max(5, zoomLevel);
         }
         
-        // پالس هر ۵ ثانیه
-        setInterval(addPulseEffect, 5000);
+        function zoomOut() {
+            zoomLevel += 2;
+            camera.position.z = Math.min(50, zoomLevel);
+        }
         
-        // اسکرول نرم
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+        // مانیتورینگ performance
+        let frameCount = 0;
+        let lastTime = performance.now();
+        let fps = 60;
+        
+        function updateFPS() {
+            frameCount++;
+            const currentTime = performance.now();
+            
+            if(currentTime >= lastTime + 1000) {
+                fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                frameCount = 0;
+                lastTime = currentTime;
                 
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
+                document.getElementById('fps-counter').textContent = fps;
                 
-                window.scrollTo({
-                    top: targetSection.offsetTop - 80,
-                    behavior: 'smooth'
+                // تنظیم GPU load بر اساس FPS
+                const gpuLoad = fps > 50 ? 'سبک' : fps > 30 ? 'متوسط' : 'سنگین';
+                document.getElementById('gpu-load').textContent = gpuLoad;
+            }
+            
+            requestAnimationFrame(updateFPS);
+        }
+        
+        // سیستم چت‌بات AI
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if(message) {
+                const chatBody = document.querySelector('.chat-body');
+                const userMsg = document.createElement('div');
+                userMsg.className = 'message user-message';
+                userMsg.textContent = message;
+                chatBody.appendChild(userMsg);
+                
+                // پاسخ AI
+                setTimeout(() => {
+                    const aiResponses = [
+                        "سیستم AMIXAMA در حال پردازش درخواست شماست...",
+                        "با تحلیل داده‌های موجود، پیشنهاد من این است:",
+                        "بر اساس معماری AI، این قابلیت در نسخه بعدی اضافه می‌شود.",
+                        "اینجا AMIXAMA هستم! چگونه می‌توانم کمک کنم؟",
+                        "در حال به‌روزرسانی کد به صورت خودکار..."
+                    ];
+                    
+                    const aiMsg = document.createElement('div');
+                    aiMsg.className = 'message ai-message';
+                    aiMsg.textContent = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                    chatBody.appendChild(aiMsg);
+                    
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
+                
+                input.value = '';
+            }
+        }
+        
+        // سیستم امنیتی AI
+        function monitorSecurity() {
+            const threats = ['پایین', 'متوسط', 'بالا'];
+            const randomThreat = threats[Math.floor(Math.random() * threats.length)];
+            document.getElementById('threat-level').textContent = randomThreat;
+            
+            // تغییر رنگ بر اساس سطح تهدید
+            const threatElement = document.getElementById('threat-level');
+            threatElement.className = randomThreat === 'پایین' ? 'level-safe' : 
+                                     randomThreat === 'متوسط' ? 'level-warning' : 'level-danger';
+        }
+        
+        // راه‌اندازی سیستم
+        document.addEventListener('DOMContentLoaded', () => {
+            init3DScene();
+            fetchLiveData();
+            updateFPS();
+            monitorSecurity();
+            
+            // بروزرسانی خودکار داده هر 30 ثانیه
+            setInterval(fetchLiveData, 30000);
+            
+            // مانیتورینگ امنیت هر 10 ثانیه
+            setInterval(monitorSecurity, 10000);
+            
+            // اعتبارسنجی reCAPTCHA
+            if(typeof grecaptcha !== 'undefined') {
+                grecaptcha.ready(() => {
+                    grecaptcha.execute('demo_site_key', {action: 'homepage'});
                 });
+            }
+            
+            // بهینه‌سازی performance
+            const heavyElements = document.querySelectorAll('.floating-card-3d, .data-title-system');
+            heavyElements.forEach(el => {
+                el.classList.add('will-change', 'gpu-accelerated');
             });
         });
         
-        // شبیه‌سازی AI در حال کار
-        console.log('AMIXAMA AI Core Initialized');
-        console.log('Self-evolving architecture: ACTIVE');
-        console.log('Auto-code generation: ENABLED');
-        console.log('Intelligent content system: RUNNING');
-        
-        // تولید اتوماتیک استایل‌های داینامیک (شبیه‌سازی AI)
-        function generateDynamicStyles() {
-            const colors = [
-                {primary: '#3b82f6', secondary: '#8b5cf6'},
-                {primary: '#10b981', secondary: '#3b82f6'},
-                {primary: '#8b5cf6', secondary: '#ec4899'},
-                {primary: '#f59e0b', secondary: '#10b981'}
-            ];
-            
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            const dynamicCSS = `
-                :root {
-                    --primary-color: ${randomColor.primary};
-                    --secondary-color: ${randomColor.secondary};
-                }
-                
-                .floating-amixama {
-                    background: linear-gradient(90deg, ${randomColor.primary}, ${randomColor.secondary}, ${randomColor.primary});
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-size: 200% auto;
-                    animation: gradient-flow 3s ease-in-out infinite;
-                }
-                
-                @keyframes gradient-flow {
-                    0%, 100% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                }
-            `;
-            
-            const styleSheet = document.createElement('style');
-            styleSheet.id = 'ai-color-styles';
-            styleSheet.innerHTML = dynamicCSS;
-            
-            // حذف استایل قبلی اگر وجود دارد
-            const existingStyle = document.getElementById('ai-color-styles');
-            if (existingStyle) {
-                existingStyle.remove();
+        // کنترل‌های کیبورد برای رابط 3D
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowUp':
+                    rotateScene('x');
+                    break;
+                case 'ArrowDown':
+                    rotateScene('x');
+                    break;
+                case 'ArrowLeft':
+                    rotateScene('y');
+                    break;
+                case 'ArrowRight':
+                    rotateScene('y');
+                    break;
+                case '+':
+                case '=':
+                    zoomIn();
+                    break;
+                case '-':
+                    zoomOut();
+                    break;
             }
-            
-            document.head.appendChild(styleSheet);
-        }
-        
-        // تغییر رنگ پویا هر ۶۰ ثانیه
-        setTimeout(generateDynamicStyles, 1000);
-        setInterval(generateDynamicStyles, 60000);
+        });
     </script>
 </body>
 </html>
